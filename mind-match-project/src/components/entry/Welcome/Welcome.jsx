@@ -1,11 +1,10 @@
-import React from "react";
-import styles from "./Main.module.css"
+import styles from "./Welcome.module.css"
 import { NavLink } from "react-router-dom";
 import google from "../../../assets/images/google.svg"
 import yandex from "../../../assets/images/yandex.svg"
 import apple from "../../../assets/images/apple.svg"
 
-function Main() {
+export default function Welcome() {
     return (
         <div className={styles.mainBlock}>
             <div className={styles.centralBlock}>
@@ -13,8 +12,8 @@ function Main() {
             </div>
             <div className={styles.regBlock}>
                 <p className={styles.mediumText}>Sign up to continue:</p>
-                <NavLink to="/registration" className={styles.button}>Continue with email</NavLink>
-                <NavLink to="/login" className={styles.smallText}>Login to account</NavLink>
+                <NavLink to="/registration-email-password" className={styles.button}>Continue with email</NavLink>
+                <NavLink to="/login-email-password" className={styles.smallText}>Login to account</NavLink>
             </div>
             <div className={styles.nextRegBlock}>
                 <p className={styles.mediumText}>Or sign up with:</p>
@@ -32,4 +31,3 @@ function Main() {
     );
 }
 
-export default Main;
