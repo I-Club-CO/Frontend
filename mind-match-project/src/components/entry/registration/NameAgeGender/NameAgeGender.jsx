@@ -5,7 +5,6 @@ import {
     setGender,
     setUsername,
 } from "../../../store/registrationDataSlice";
-import { useData } from "../../entryCommonComponents/useData";
 import Header from "../../entryCommonComponents/Header/Header";
 import male from "../../../../assets/images/male.svg";
 import female from "../../../../assets/images/female.svg";
@@ -34,8 +33,8 @@ export default function NameAgeGender() {
             navigate("/registration-tell-about-yourself");
         };
 
-   const gender = watch("gender"),
-        isFormValid = isValid && gender
+    const gender = watch("gender"),
+        isFormValid = isValid && gender;
 
     return (
         <div className={styles.container}>
