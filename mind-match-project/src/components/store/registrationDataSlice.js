@@ -46,16 +46,16 @@ const registrationDataSlice = createSlice({
         setCountry(state, action) {
             state.country = action.payload;
         },
-        setCity (state, action) {
+        setCity(state, action) {
             state.city = action.payload;
         },
         setPhone(state, action) {
             state.phone = action.payload;
         },
         setPhoto(state, action) {
-        state.image1 = action.payload;
+            state.image1 = action.payload;
         },
-        resetRegistrationData: () => initialState
+        resetRegistrationData: () => initialState,
     },
 });
 
@@ -72,5 +72,5 @@ export const {
     setCountry,
     setCity,
     setPhoto,
-    resetRegistrationData
+    resetRegistrationData,
 } = registrationDataSlice.actions;

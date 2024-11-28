@@ -6,16 +6,11 @@ import styles from "./TellAboutYourself.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import { useForm } from "react-hook-form";
 import Button from "../../entryCommonComponents/Button/Button";
+import tags from "./Tags";
+import Tag from "./Tag/Tag";
+import { setTags } from "../../../store/tagsSlice";
 
 export default function TellAboutYourself() {
-    // const [activity, changeActivity] = useData(
-    //         (state) => state.registrationData.activity,
-    //         setActivity
-    //     ),
-    //     [info, changeInfo] = useData(
-    //         (state) => state.registrationData.info,
-    //         setInfo
-    //     );
 
     const dispatch = useDispatch(),
         navigate = useNavigate();
@@ -31,6 +26,7 @@ export default function TellAboutYourself() {
         onSubmit = (data) => {
             dispatch(setActivity(data.activity));
             dispatch(setInfo(data.info));
+            dispatch(setTags(data.tags))
             reset();
 
             navigate("/registration-location");
@@ -45,7 +41,6 @@ export default function TellAboutYourself() {
                 >
                     <p className={styles.text}>Industry:</p>
                     <input
-                        // list="industries"
                         className={styles.input}
                         {...register("activity", {
                             required: "Industry is required.",
@@ -64,11 +59,6 @@ export default function TellAboutYourself() {
                             ""
                         )}
                     </p>
-                    {/* <datalist id="industries" style={{backgroundColor: "black"}}>
-                        <option value="Developer"></option>
-                        <option value="Designer"></option>
-                        <option value="Analyst"></option>
-                    </datalist> */}
                 </div>
                 <div className={styles.wrap_input}>
                     <p className={styles.text}>Description:</p>
@@ -88,21 +78,9 @@ export default function TellAboutYourself() {
                 <p className={styles.text}>Tags:</p>
                 <hr className={styles.line} />
                 <div className={styles.tags}>
-                    <div className={styles.tag}>
-                        <p className={styles.tag_text}>Sports</p>
-                    </div>
-                    <div className={styles.tag}>
-                        <p className={styles.tag_text}>Initiative</p>
-                    </div>
-                    <div className={styles.tag}>
-                        <p className={styles.tag_text}>Enthusiast</p>
-                    </div>
-                    <div className={styles.tag}>
-                        <p className={styles.tag_text}>Closed</p>
-                    </div>
-                    <div className={styles.tag}>
-                        <p className={styles.tag_text}>Modest</p>
-                    </div>
+                    {tags.map((tag) => (
+                        <Tag tag={tag} />
+                    ))}
                 </div>
             </div>
             <Button type="submit" text="Next" disabled={!isValid} />
