@@ -4,7 +4,6 @@ import { setCity, setCountry } from "../../../store/registrationDataSlice";
 import { useData } from "../../entryCommonComponents/useData";
 
 function Location() {
-
     const [country, changeCountry] = useData((state) => state.registrationData.country, setCountry),
         [city, changeCity] = useData((state) => state.registrationData.city, setCity);
 

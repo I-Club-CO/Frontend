@@ -8,14 +8,14 @@ const initialState = {
     gender: "",
     activity: "",
     info: "",
-    category: "Привет",
+    category: [],
     country: "",
     city: "",
     image1: null,
     phone: "79008007545",
 };
 
-const registrationDataSlice = createSlice({
+const registrationDataSlice = createSlice({ 
     name: "registrationData",
     initialState,
     reducers: {
