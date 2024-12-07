@@ -34,6 +34,7 @@
     border: none;
     height: 35px;
     margin-top: 10px;
+    cursor: pointer;
 }
 .input_textarea {
     height: 125px;

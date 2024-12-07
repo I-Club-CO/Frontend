@@ -11,7 +11,8 @@ import { useForm } from "react-hook-form";
 import Button from "../../entryCommonComponents/Button/Button";
 import tags from "./Tags";
 import { useState } from "react";
-import Modal from "react-modal";
+import ModalIndustry from "./ModalIndustry/ModalIndustry";
+import industries from "./ModalIndustry/Industries";
 
 export default function TellAboutYourself() {
     const dispatch = useDispatch(),
@@ -49,18 +50,16 @@ export default function TellAboutYourself() {
         }));
     };
 
-    // const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false),
+        [selectedIndustry, setSelectedIndustry] = useState("");
 
-    // const openModal = () => {
-    //         setModalIsOpen(true);
-    //     },
-    //     closeModal = () => {
-    //         setModalIsOpen(false);
-    //     };
+    const openModal = () => setIsModalOpen(true),
+        closeModal = () => setIsModalOpen(false);
 
-    // const modalContent = (
-
-    // )
+    const handleSelectedIndustry = (industry) => {
+        setSelectedIndustry(industry);
+        closeModal();
+    };
 
     return (
         <div className={styles.container}>
@@ -73,16 +72,23 @@ export default function TellAboutYourself() {
                     <p className={styles.text}>Industry:</p>
                     <input
                         className={styles.input}
+                        onClick={openModal}
                         {...register("activity", {
                             required: "Industry is required.",
-                            // pattern: {
-                            //     value: /^[^\s@]+$/,
-                            //     message: "Invalid industry format.",
-                            // },
                         })}
                         type="text"
                         placeholder="Choose your Industry..."
+                        value={selectedIndustry}
                     />
+                    {/* <div
+                        className={styles.input}
+                        onClick={openModal}
+                        {...register("activity", {
+                            required: "Industry is required.",
+                        })}
+                    >
+                        {selectedIndustry || "Choose your Industry..."}
+                    </div> */}
                     <p className={styles.error_text}>
                         {errors.activity ? (
                             <span>{errors.activity.message}</span>
@@ -90,6 +96,12 @@ export default function TellAboutYourself() {
                             ""
                         )}
                     </p>
+                    <ModalIndustry
+                        isOpen={isModalOpen}
+                        onClose={closeModal}
+                        industries={industries}
+                        onSelectIndustries={handleSelectedIndustry}
+                    />
                 </div>
                 <div className={styles.wrap_input}>
                     <p className={styles.text}>Description:</p>
