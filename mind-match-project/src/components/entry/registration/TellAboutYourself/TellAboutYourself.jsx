@@ -10,9 +10,10 @@ import Header from "../../entryCommonComponents/Header/Header";
 import { useForm } from "react-hook-form";
 import Button from "../../entryCommonComponents/Button/Button";
 import tags from "./Tags";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalIndustry from "./ModalIndustry/ModalIndustry";
 import industries from "./ModalIndustry/Industries";
+import arrow_grey from "../../../../assets/images/arrow_grey.svg";
 
 export default function TellAboutYourself() {
     const dispatch = useDispatch(),
@@ -29,12 +30,14 @@ export default function TellAboutYourself() {
             register,
             formState: { errors, isValid },
             handleSubmit,
+            setValue,
+            trigger,
             reset,
         } = useForm({
             mode: "onBlur",
         }),
         onSubmit = (data) => {
-            console.log(data.category);
+            console.log(data);
             dispatch(setActivity(data.activity));
             dispatch(setInfo(data.info));
             dispatch(setCategory(data.category));
@@ -53,14 +56,25 @@ export default function TellAboutYourself() {
     const [isModalOpen, setIsModalOpen] = useState(false),
         [selectedIndustry, setSelectedIndustry] = useState("");
 
+    // useEffect(() => {
+    //     if (isModalOpen) {
+    //         document.querySelector("body").style.overflow = "hidden"
+    //     } else {
+    //         document.querySelector("body").style.overflow = "auto"
+    //     }
+
+    //     return () => document.querySelector("body").style.overflow = "auto"
+    // }, [isModalOpen]);
+
     const openModal = () => setIsModalOpen(true),
         closeModal = () => setIsModalOpen(false);
 
     const handleSelectedIndustry = (industry) => {
         setSelectedIndustry(industry);
+        setValue("activity", industry);
+        trigger("activity");
         closeModal();
     };
-
     return (
         <div className={styles.container}>
             <Header />
@@ -70,25 +84,20 @@ export default function TellAboutYourself() {
                     className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
                 >
                     <p className={styles.text}>Industry:</p>
-                    <input
-                        className={styles.input}
-                        onClick={openModal}
-                        {...register("activity", {
-                            required: "Industry is required.",
-                        })}
-                        type="text"
-                        placeholder="Choose your Industry..."
-                        value={selectedIndustry}
-                    />
-                    {/* <div
-                        className={styles.input}
-                        onClick={openModal}
-                        {...register("activity", {
-                            required: "Industry is required.",
-                        })}
-                    >
-                        {selectedIndustry || "Choose your Industry..."}
-                    </div> */}
+                    <div className={styles.sub_wrap_input}>
+                        <input
+                            className={styles.input}
+                            onClick={openModal}
+                            {...register("activity", {
+                                required: "Industry is required.",
+                            })}
+                            type="text"
+                            placeholder="Choose your Industry..."
+                            value={selectedIndustry}
+                            readOnly
+                        />
+                        <img src={arrow_grey} className={styles.arrow_grey} />
+                    </div>
                     <p className={styles.error_text}>
                         {errors.activity ? (
                             <span>{errors.activity.message}</span>

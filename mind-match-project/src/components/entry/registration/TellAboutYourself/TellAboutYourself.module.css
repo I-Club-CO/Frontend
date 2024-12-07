@@ -17,6 +17,14 @@
     font-weight: 600;
     line-height: 19px;
 }
+.sub_wrap_input {
+    position: relative;
+}
+.arrow_grey {
+    position: absolute;
+    right: 9px;
+    top: 24px;
+}
 .wrap_input {
     margin-top: 16px;
 }
@@ -35,6 +43,10 @@
     height: 35px;
     margin-top: 10px;
     cursor: pointer;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500px;
+    line-height: 17px;
 }
 .input_textarea {
     height: 125px;

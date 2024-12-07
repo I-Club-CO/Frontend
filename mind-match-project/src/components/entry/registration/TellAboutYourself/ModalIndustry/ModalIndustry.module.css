@@ -1,5 +1,5 @@
 .overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -13,11 +13,11 @@
 
 .modal {
     margin: 20px;
-    margin-top: 20px;
+    margin-top: 149px;
     background: #282828;
     padding: 9px;
     border-radius: 8px;
-    width: 90%;
+    width: 100%;
 }
 .header {
     display: flex;
@@ -36,11 +36,11 @@
     text-align: center;
 }
 
-.list {
+.industries {
     list-style: none;
     padding: 0;
     margin: 0;
-    max-height: 300px;
+    height: 205px;
     overflow-y: auto;
 }
 .industry {
