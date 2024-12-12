@@ -1,28 +1,52 @@
 // import React, { useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
-// import { NavLink, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import {
 //     resetRegistrationData,
 //     setPhoto,
 // } from "../../../store/registrationDataSlice";
 // import axios from "axios";
+// import { useForm } from "react-hook-form";
+// import styles from "./Photo.module.css";
+// import Header from "../../entryCommonComponents/Header/Header";
+// import Button from "../../entryCommonComponents/Button/Button";
+// import camera from "../../../../assets/images/camera.svg";
 
 // function Photo() {
 //     const dispatch = useDispatch(),
+//         navigate = useNavigate(),
 //         allData = useSelector((state) => state.registrationData),
-//         [photoFile, setPhotoFile] = useState(null);
+//         [photoFile, setPhotoFile] = useState(null),
+//         [photoPreview, setPhotoPreview] = useState(null);
 
-//     const changePhoto = (event) => {
-//         const file = event.target.files[0];
-//         if (file) {
-//             // setPhotoFile(file);
-//             // const fileUrl = URL.createObjectURL(file);
-//             // dispatch(setPhoto(fileUrl));
-//             setPhotoFile(file);
-//             dis
-//         }
-//         dispatch(setPhoto(event.target.value));
-//     };
+//     const {
+//         register,
+//         formState: { errors, isValid },
+//         handleSubmit,
+//         reset,
+//     } = useForm({
+//         mode: "onBlur",
+//     });
+
+//     // const isFileValid = (file) => {
+//     //     if (!file) return false;
+//     //     const validTypes = ["image/jpeg", "image/png", "image/gif"];
+//     //     const maxSize = 1024 * 1024 * 5;
+
+//     //     return validTypes.includes(file.type) && file.size <= maxSize;
+//     // };
+
+//     // const changePhoto = (event) => {
+//     //     const file = event.target.files[0];
+//     //     if (file && isFileValid(file)) {
+//     //         setPhotoFile(file);
+//     //         const previewUrl = URL.createObjectURL(file);
+//     //         setPhotoPreview(previewUrl);
+//     //         dispatch(setPhoto(previewUrl));
+//     //     } else {
+//     //         alert("Invalid file. Please upload a valid image file (max 5MB).");
+//     //     }
+//     // };
 
 //     const sendDataToServer = async () => {
 //         try {
@@ -37,47 +61,124 @@
 //             formData.append("category", allData.category);
 //             formData.append("country", allData.country);
 //             formData.append("city", allData.city);
-//             formData.append("img", allData.img);
 //             formData.append("phone", allData.phone);
+//             if (photoFile) {
+//                 formData.append("image1", photoFile);
+//             }
+
 //             const response = await axios.post(
-//                 "https://chat.serveo.net/img/",
+//                 "https://vsp44.pythonanywhere.com/register/",
 //                 formData,
+//                 { headers: { "Content-Type": "multipart/form-data" } }
 //             );
 
 //             if (response.status === 201) {
 //                 alert("Registration successful!");
-//                 dispatch(resetRegistrationData());
 //                 navigate("/registration-verification-code");
+//                 dispatch(resetRegistrationData());
 //             }
 //         } catch (error) {
 //             console.error("Ошибка при отправке данных на сервер:", error);
 //         }
 //     };
-//     const navigate = useNavigate(),
-//     back = () => {
-//         navigate(-1);
+
+//     const onSubmit = () => {
+//         sendDataToServer();
 //     };
+
 //     return (
-//         <div>
-//             <input type="file" accept="image/*" onChange={changePhoto} />
-//             {photoFile && (
-//                 <img
-//                     src={URL.createObjectURL(photoFile)}
-//                     alt="preview"
-//                     width="200"
-//                 />
-//             )}
-//             <button onClick={back}>Back</button>
-//             <button onClick={sendDataToServer}>Отправить данные</button>
-//             <NavLink to="/registration-verification-code">Next page</NavLink>
+//         <div className={styles.container}>
+//             <Header />
+//             <h1 className={styles.mainText}>Photo</h1>
+//             <form onSubmit={handleSubmit(onSubmit)}>
+//                 <div
+//                     className={`${styles.wrap_firstInput} ${styles.wrap_input}`}
+//                 >
+//                     <input
+//                         {...register("image1", {
+//                             validate: {
+//                                 validFileType: (value) => {
+//                                     const file = value?.[0];
+//                                     if (!file) return "File is required.";
+//                                     const validTypes = [
+//                                         "image/jpeg",
+//                                         "image/png",
+//                                         "image/gif",
+//                                     ];
+//                                     return (
+//                                         validTypes.includes(file.type) ||
+//                                         "Invalid file type. Allowed: JPEG, PNG, GIF."
+//                                     );
+//                                 },
+//                                 validFileSize: (value) => {
+//                                     const file = value?.[0];
+//                                     if (!file) return "File is required.";
+//                                     const maxSize = 1024 * 1024 * 5; // 5MB
+//                                     return (
+//                                         file.size <= maxSize ||
+//                                         "File size must not exceed 5MB."
+//                                     );
+//                                 },
+//                             },
+//                         })}
+//                         id="file-input"
+//                         type="file"
+//                         accept="image/*"
+//                         onChange={(event) => {
+//                             const file = event.target.files[0];
+//                             if (file) {
+//                                 setPhotoFile(file);
+//                                 const previewUrl = URL.createObjectURL(file);
+//                                 setPhotoPreview(previewUrl);
+//                                 dispatch(setPhoto(previewUrl));
+//                             }
+//                         }}
+//                         className={styles.hiddenInput}
+//                     />
+//                     <div className={styles.file_selection}>
+//                         <label
+//                             htmlFor="file-input"
+//                             className={styles.customButton}
+//                         >
+//                             <img src={camera} className={styles.camera_icon} />
+//                         </label>
+//                         <p className={styles.file_selection_text}>
+//                             Photo for profile and card
+//                         </p>
+//                     </div>
+//                 </div>
+//                 <div className={styles.wrap_input}>
+//                     <p className={styles.text}>Photo:</p>
+//                     <div className={styles.preview}>
+//                         {photoPreview && (
+//                             <img
+//                                 className={styles.preview_photo}
+//                                 src={photoPreview}
+//                                 alt="preview"
+//                                 width="200"
+//                                 onLoad={() => URL.revokeObjectURL(photoPreview)}
+//                             />
+//                         )}
+//                     </div>
+//                     <p className={styles.error_text}>
+//                         {errors.image1 ? (
+//                             <span>{errors.image1.message}</span>
+//                         ) : (
+//                             ""
+//                         )}
+//                     </p>
+//                 </div>
+//                 <Button type="submit" text="Next" />
+//             </form>
 //         </div>
 //     );
 // }
 
 // export default Photo;
+
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
     resetRegistrationData,
     setPhoto,
@@ -87,38 +188,24 @@ import { useForm } from "react-hook-form";
 import styles from "./Photo.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import Button from "../../entryCommonComponents/Button/Button";
+import camera from "../../../../assets/images/camera.svg";
 
 function Photo() {
     const dispatch = useDispatch(),
         navigate = useNavigate(),
         allData = useSelector((state) => state.registrationData),
-        [photoFile, setPhotoFile] = useState(null);
+        [photoPreview, setPhotoPreview] = useState(null);
 
     const {
         register,
-        formState: { errors, isValid },
+        setValue,
+        formState: { errors },
         handleSubmit,
-        reset,
     } = useForm({
         mode: "onBlur",
     });
 
-    const isFileValid = (file) => {
-        if (!file) return false;
-        const validTypes = ["image/jpeg", "image/png", "image/gif"];
-        const maxSize = 1024 * 1024 * 5; // 5MB
-
-        return validTypes.includes(file.type) && file.size <= maxSize;
-    };
-
-    const changePhoto = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setPhotoFile(file);
-        }
-    };
-
-    const sendDataToServer = async () => {
+    const sendDataToServer = async (data) => {
         try {
             const formData = new FormData();
             formData.append("email", allData.email);
@@ -132,9 +219,7 @@ function Photo() {
             formData.append("country", allData.country);
             formData.append("city", allData.city);
             formData.append("phone", allData.phone);
-            if (photoFile) {
-                formData.append("image1", photoFile);
-            }
+            formData.append("image1", data.image1[0]); // Используем файл из формы
 
             const response = await axios.post(
                 "https://vsp44.pythonanywhere.com/register/",
@@ -145,6 +230,7 @@ function Photo() {
             if (response.status === 201) {
                 alert("Registration successful!");
                 navigate("/registration-verification-code");
+                dispatch(resetRegistrationData());
             }
         } catch (error) {
             console.error("Ошибка при отправке данных на сервер:", error);
@@ -152,13 +238,7 @@ function Photo() {
     };
 
     const onSubmit = (data) => {
-        if (!isFileValid(photoFile)) {
-            alert("Invalid file. Please upload a valid image file (max 5MB).");
-            return;
-        }
-
-        dispatch(setPhoto(photoFile));
-        sendDataToServer();
+        sendDataToServer(data);
     };
 
     return (
@@ -166,21 +246,82 @@ function Photo() {
             <Header />
             <h1 className={styles.mainText}>Photo</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className={styles.wrap_input}>
+                <div
+                    className={`${styles.wrap_firstInput} ${styles.wrap_input}`}
+                >
                     <input
+                        {...register("image1", {
+                            validate: {
+                                validFileType: (value) => {
+                                    const file = value?.[0];
+                                    if (!file) return "File is required.";
+                                    const validTypes = [
+                                        "image/jpeg",
+                                        "image/png",
+                                        "image/gif",
+                                    ];
+                                    return (
+                                        validTypes.includes(file.type) ||
+                                        "Invalid file type. Allowed: JPEG, PNG, GIF."
+                                    );
+                                },
+                                validFileSize: (value) => {
+                                    const file = value?.[0];
+                                    const maxSize = 1024 * 1024 * 5; // 5MB
+                                    return (
+                                        file.size <= maxSize ||
+                                        "File size must not exceed 5MB."
+                                    );
+                                },
+                            },
+                        })}
+                        id="file-input"
                         type="file"
                         accept="image/*"
-                        onChange={changePhoto}
+                        onChange={(event) => {
+                            const file = event.target.files[0];
+                            if (file) {
+                                setValue("image1", [file]); // Устанавливаем значение поля формы
+                                const previewUrl = URL.createObjectURL(file);
+                                setPhotoPreview(previewUrl);
+                                dispatch(setPhoto(previewUrl));
+                            }
+                        }}
+                        className={styles.hiddenInput}
                     />
+                    <div className={styles.file_selection}>
+                        <label
+                            htmlFor="file-input"
+                            className={styles.customButton}
+                        >
+                            <img src={camera} className={styles.camera_icon} />
+                        </label>
+                        <p className={styles.file_selection_text}>
+                            Photo for profile and card
+                        </p>
+                    </div>
                 </div>
-                {photoFile && (
-                    <img
-                        src={URL.createObjectURL(photoFile)}
-                        alt="preview"
-                        width="200"
-                        onLoad={() => URL.revokeObjectURL(photoFile)}
-                    />
-                )}
+                <div className={styles.wrap_input}>
+                    <p className={styles.text}>Photo:</p>
+                    <div className={styles.preview}>
+                        {photoPreview && (
+                            <img
+                                className={styles.preview_photo}
+                                src={photoPreview}
+                                alt="preview"
+                                width="200"
+                                onLoad={() => URL.revokeObjectURL(photoPreview)}
+                            />
+                        )}
+                    </div>
+                    <p className={styles.error_text}>
+                        {errors.image1 ? (
+                            <span>{errors.image1.message}</span>
+                        ) : (
+                            ""
+                        )}
+                    </p>
+                </div>
                 <Button type="submit" text="Next" />
             </form>
         </div>
