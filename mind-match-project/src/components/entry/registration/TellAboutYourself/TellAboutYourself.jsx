@@ -37,7 +37,6 @@ export default function TellAboutYourself() {
             mode: "onBlur",
         }),
         onSubmit = (data) => {
-            console.log(data);
             dispatch(setActivity(data.activity));
             dispatch(setInfo(data.info));
             dispatch(setCategory(data.category));
@@ -55,16 +54,6 @@ export default function TellAboutYourself() {
 
     const [isModalOpen, setIsModalOpen] = useState(false),
         [selectedIndustry, setSelectedIndustry] = useState("");
-
-    // useEffect(() => {
-    //     if (isModalOpen) {
-    //         document.querySelector("body").style.overflow = "hidden"
-    //     } else {
-    //         document.querySelector("body").style.overflow = "auto"
-    //     }
-
-    //     return () => document.querySelector("body").style.overflow = "auto"
-    // }, [isModalOpen]);
 
     const openModal = () => setIsModalOpen(true),
         closeModal = () => setIsModalOpen(false);

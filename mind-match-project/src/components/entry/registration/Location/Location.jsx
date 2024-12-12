@@ -1,26 +1,73 @@
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { setCity, setCountry } from "../../../store/registrationDataSlice";
-import { useData } from "../../entryCommonComponents/useData";
+import { useForm } from "react-hook-form";
+import styles from "./Location.module.css";
+import Header from "../../entryCommonComponents/Header/Header";
+import Button from "../../entryCommonComponents/Button/Button";
 
 function Location() {
-    const [country, changeCountry] = useData((state) => state.registrationData.country, setCountry),
-        [city, changeCity] = useData((state) => state.registrationData.city, setCity);
+    const dispatch = useDispatch(),
+        navigate = useNavigate();
 
-    const navigate = useNavigate(),
-        back = () => {
-            navigate(-1);
-        };
+    const {
+        register,
+        formState: { errors, isValid },
+        handleSubmit,
+        reset,
+    } = useForm({
+        mode: "onBlur",
+    });
+
+    const onSubmit = (data) => {
+        dispatch(setCity(data.city));
+        dispatch(setCountry(data.country));
+        reset();
+
+        navigate("/registration-photo");
+    };
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Country..."
-                onChange={changeCountry}
-            />
-            <input type="text" placeholder="City..." onChange={changeCity} />
-            <button onClick={back}>назад</button>
-            <NavLink to="/registration-photo">next page</NavLink>
+        <div className={styles.container}>
+            <Header />
+            <h1 className={styles.mainText}>Location</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div
+                    className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
+                >
+                    <p className={styles.text}>City:</p>
+                    <input
+                        className={styles.input}
+                        {...register("city", {
+                            required: "City is required.",
+                        })}
+                        type="text"
+                        placeholder="City..."
+                    />
+                    <p className={styles.error_text}>
+                        {errors.city ? <span>{errors.city.message}</span> : ""}
+                    </p>
+                </div>
+                <div className={styles.wrap_input}>
+                    <p className={styles.text}>Country:</p>
+                    <input
+                        className={styles.input}
+                        {...register("country", {
+                            required: "Country is required.",
+                        })}
+                        type="text"
+                        placeholder="Country..."
+                    />
+                    <p className={styles.error_text}>
+                        {errors.country ? (
+                            <span>{errors.country.message}</span>
+                        ) : (
+                            ""
+                        )}
+                    </p>
+                </div>
+                {/* Здесь должна находиться интерактивная карта */}
+                <Button type="submit" text="Next" disabled={!isValid} />
+            </form>
         </div>
     );
 }

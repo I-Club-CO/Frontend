@@ -83,19 +83,38 @@ import {
     setPhoto,
 } from "../../../store/registrationDataSlice";
 import axios from "axios";
+import { useForm } from "react-hook-form";
+import styles from "./Photo.module.css";
+import Header from "../../entryCommonComponents/Header/Header";
+import Button from "../../entryCommonComponents/Button/Button";
 
 function Photo() {
-    const dispatch = useDispatch();
-    const allData = useSelector((state) => state.registrationData);
-    const [photoFile, setPhotoFile] = useState(null);
-    const navigate = useNavigate();
+    const dispatch = useDispatch(),
+        navigate = useNavigate(),
+        allData = useSelector((state) => state.registrationData),
+        [photoFile, setPhotoFile] = useState(null);
+
+    const {
+        register,
+        formState: { errors, isValid },
+        handleSubmit,
+        reset,
+    } = useForm({
+        mode: "onBlur",
+    });
+
+    const isFileValid = (file) => {
+        if (!file) return false;
+        const validTypes = ["image/jpeg", "image/png", "image/gif"];
+        const maxSize = 1024 * 1024 * 5; // 5MB
+
+        return validTypes.includes(file.type) && file.size <= maxSize;
+    };
 
     const changePhoto = (event) => {
         const file = event.target.files[0];
         if (file) {
             setPhotoFile(file);
-            const fileUrl = URL.createObjectURL(file);
-            dispatch(setPhoto(fileUrl));
         }
     };
 
@@ -120,12 +139,11 @@ function Photo() {
             const response = await axios.post(
                 "https://vsp44.pythonanywhere.com/register/",
                 formData,
-                { headers: { 'Content-Type': 'multipart/form-data' } }
+                { headers: { "Content-Type": "multipart/form-data" } }
             );
 
             if (response.status === 201) {
                 alert("Registration successful!");
-                // dispatch(resetRegistrationData());
                 navigate("/registration-verification-code");
             }
         } catch (error) {
@@ -133,23 +151,38 @@ function Photo() {
         }
     };
 
-    const back = () => {
-        navigate(-1);
+    const onSubmit = (data) => {
+        if (!isFileValid(photoFile)) {
+            alert("Invalid file. Please upload a valid image file (max 5MB).");
+            return;
+        }
+
+        dispatch(setPhoto(photoFile));
+        sendDataToServer();
     };
 
     return (
-        <div>
-            <input type="file" accept="image/*" onChange={changePhoto} />
-            {photoFile && (
-                <img
-                    src={URL.createObjectURL(photoFile)}
-                    alt="preview"
-                    width="200"
-                />
-            )}
-            <button onClick={back}>Back</button>
-            <button onClick={sendDataToServer}>Отправить данные</button>
-            <NavLink to="/registration-verification-code">Next page</NavLink>
+        <div className={styles.container}>
+            <Header />
+            <h1 className={styles.mainText}>Photo</h1>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className={styles.wrap_input}>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        onChange={changePhoto}
+                    />
+                </div>
+                {photoFile && (
+                    <img
+                        src={URL.createObjectURL(photoFile)}
+                        alt="preview"
+                        width="200"
+                        onLoad={() => URL.revokeObjectURL(photoFile)}
+                    />
+                )}
+                <Button type="submit" text="Next" />
+            </form>
         </div>
     );
 }
