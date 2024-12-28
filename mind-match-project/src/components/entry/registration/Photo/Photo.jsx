@@ -239,7 +239,7 @@ function Photo() {
 
     const onSubmit = (data) => {
         sendDataToServer(data);
-    };
+    }
 
     return (
         <div className={styles.container}>

@@ -10,7 +10,7 @@ import Header from "../../entryCommonComponents/Header/Header";
 import { useForm } from "react-hook-form";
 import Button from "../../entryCommonComponents/Button/Button";
 import tags from "./Tags";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ModalIndustry from "./ModalIndustry/ModalIndustry";
 import industries from "./ModalIndustry/Industries";
 import arrow_grey from "../../../../assets/images/arrow_grey.svg";
@@ -19,12 +19,16 @@ export default function TellAboutYourself() {
     const dispatch = useDispatch(),
         navigate = useNavigate();
 
-    const [checkedTags, setCheckedTags] = useState(
-        tags.reduce((acc, tag) => {
-            acc[tag] = false;
-            return acc;
-        }, {})
-    );
+    const [checkedTags, setCheckedTags] = useState([]),
+        handleChangeTags = (event) => {
+            const tag = event.target.value;
+
+            setCheckedTags((prevCheckedTags) =>
+                prevCheckedTags.includes(tag)
+                    ? prevCheckedTags.filter((item) => item !== tag)
+                    : [...prevCheckedTags, tag]
+            );
+        };
 
     const {
             register,
@@ -43,14 +47,12 @@ export default function TellAboutYourself() {
             reset();
 
             navigate("/registration-location");
-        };
-
-    const toggleTag = (tag) => {
-        setCheckedTags((prevState) => ({
-            ...prevState,
-            [tag]: !prevState[tag],
-        }));
-    };
+        },
+        handleKewDown = (event) => {
+            if (event.key === "Enter" && isValid) {
+                handleSubmit(onSubmit)()
+            }
+         }
 
     const [isModalOpen, setIsModalOpen] = useState(false),
         [selectedIndustry, setSelectedIndustry] = useState("");
@@ -64,11 +66,12 @@ export default function TellAboutYourself() {
         trigger("activity");
         closeModal();
     };
+
     return (
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Tell about yourself</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
                 <div
                     className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
                 >
@@ -122,26 +125,27 @@ export default function TellAboutYourself() {
                             <label
                                 key={text}
                                 className={`${styles.tag} ${
-                                    checkedTags[text] ? styles.tag_active : ""
+                                    checkedTags.includes(text)
+                                        ? styles.tag_active
+                                        : ""
                                 }`}
-                                onClick={() => toggleTag(text)}
                             >
                                 <input
                                     type="checkbox"
                                     value={text}
                                     {...register("category", {
                                         required: "Select at least 3 tags.",
-                                        validate: (value) =>
-                                            value.length >= 3 ||
+                                        validate: () =>
+                                            checkedTags.length >= 2 ||
                                             "Select at least 3 tags.",
                                     })}
-                                    checked={checkedTags[text]}
-                                    onChange={() => toggleTag(text)}
+                                    checked={checkedTags.includes(text)}
+                                    onChange={handleChangeTags}
                                     className={styles.checkbox}
                                 />
                                 <p
                                     className={`${
-                                        checkedTags[text]
+                                        checkedTags.includes(text)
                                             ? styles.tag_text_active
                                             : styles.tag_text
                                     }`}

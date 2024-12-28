@@ -15,8 +15,9 @@ function Location() {
         formState: { errors, isValid },
         handleSubmit,
         reset,
+        watch,
     } = useForm({
-        mode: "onBlur",
+        mode: "onChange",
     });
 
     const onSubmit = (data) => {
@@ -25,12 +26,18 @@ function Location() {
         reset();
 
         navigate("/registration-photo");
-    };
+    },
+    handleKewDown = (event) => {
+        if (event.key === "Enter" && isValid) {
+            handleSubmit(onSubmit)
+        }
+     }
+
     return (
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Location</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
                 <div
                     className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
                 >
@@ -39,6 +46,10 @@ function Location() {
                         className={styles.input}
                         {...register("city", {
                             required: "City is required.",
+                            pattern: {
+                                value: /^[A-Za-zА-Яа-яЁё]{3,}$/,
+                                message: "At least 3 letters.",
+                            },
                         })}
                         type="text"
                         placeholder="City..."
@@ -53,6 +64,10 @@ function Location() {
                         className={styles.input}
                         {...register("country", {
                             required: "Country is required.",
+                            pattern: {
+                                value: /^[A-Za-zА-Яа-яЁё]{4,}$/,
+                                message: "At least 4 letters.",
+                            },
                         })}
                         type="text"
                         placeholder="Country..."

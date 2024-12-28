@@ -11,6 +11,7 @@ import female from "../../../../assets/images/female.svg";
 import Button from "../../entryCommonComponents/Button/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function NameAgeGender() {
     const dispatch = useDispatch(),
@@ -35,6 +36,20 @@ export default function NameAgeGender() {
 
     const gender = watch("gender"),
         isFormValid = isValid && gender;
+
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === "Enter" && isFormValid) {
+                event.preventDefault();
+                handleSubmit(onSubmit)();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyPress);
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        };
+    }, [isFormValid, handleSubmit, onSubmit]);
 
     return (
         <div className={styles.container}>

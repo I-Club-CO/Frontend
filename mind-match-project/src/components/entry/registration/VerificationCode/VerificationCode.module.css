@@ -1,0 +1,116 @@
+.container {
+    background-color: #1b1b1b;
+    height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+.mainText {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    margin-top: 20px;
+}
+.text {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+}
+.wrap_input {
+    margin-top: 16px;
+}
+.wrap_firstInput {
+    margin-top: 12px;
+}
+.input {
+    width: -webkit-fill-available;
+    background: #282828;
+    color: white;
+    font-family: "Gantari";
+    border-radius: 10px;
+    padding-left: 9px;
+    border: none;
+    height: 35px;
+    margin-top: 10px;
+}
+.input::placeholder {
+    font-family: "Gantari";
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    color: #FFFFFF80;
+}
+.error_text {
+    color: #DC1D0D;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+}
+.subText {
+    display: block;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    color: #ffffff80;
+}
+
+/* .container {
+    background-color: #1b1b1b;
+    height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+.mainText {
+    color: #ffffff;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 38px;
+    margin-top: 20px;
+}
+.text {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+}
+.wrap_firstInput {
+    margin-top: 12px;
+}
+.verify_inputs {
+    display: flex;
+    margin-top: 10px;
+    gap: 5px;
+}
+.input {
+    background: #282828;
+    color: white;
+    font-family: "Gantari";
+    border-radius: 10px;
+    border: none;
+    width: 50px;
+    height: 50px;
+    padding: 0px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+    cursor: pointer;
+}
+.error_text {
+    color: #DC1D0D;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+}
+.subText {
+    display: block;
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 14px;
+    color: #ffffff80;
+} */

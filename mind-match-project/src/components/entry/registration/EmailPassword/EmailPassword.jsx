@@ -18,10 +18,10 @@ export default function EmailPassword() {
         watch,
         reset,
     } = useForm({
-        mode: "onBlur",
+        mode: "onChange",
     });
 
-    const [password, repeatPassword] = watch(["password", "repeatPassword"]);
+    const [password, repeatPassword] = watch(["password", "repeatPassword"])
 
     const onSubmit = (data) => {
         dispatch(setEmail(data.email));
