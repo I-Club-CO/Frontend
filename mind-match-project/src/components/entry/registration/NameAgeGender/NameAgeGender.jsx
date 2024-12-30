@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 export default function NameAgeGender() {
     const dispatch = useDispatch(),
-        navigate = useNavigate();
+        navigate = useNavigate()
 
     const {
             register,

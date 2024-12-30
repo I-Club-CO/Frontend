@@ -29,9 +29,9 @@ function Location() {
     },
     handleKewDown = (event) => {
         if (event.key === "Enter" && isValid) {
-            handleSubmit(onSubmit)
+            handleSubmit(onSubmit)()
         }
-     }
+    }
 
     return (
         <div className={styles.container}>

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import {
-    setActivity,
+    setIndustry,
     setCategory,
     setInfo,
 } from "../../../store/registrationDataSlice";
@@ -41,7 +41,7 @@ export default function TellAboutYourself() {
             mode: "onBlur",
         }),
         onSubmit = (data) => {
-            dispatch(setActivity(data.activity));
+            dispatch(setIndustry(data.industry));
             dispatch(setInfo(data.info));
             dispatch(setCategory(data.category));
             reset();
@@ -62,8 +62,8 @@ export default function TellAboutYourself() {
 
     const handleSelectedIndustry = (industry) => {
         setSelectedIndustry(industry);
-        setValue("activity", industry);
-        trigger("activity");
+        setValue("industry", industry);
+        trigger("industry");
         closeModal();
     };
 
@@ -80,7 +80,7 @@ export default function TellAboutYourself() {
                         <input
                             className={styles.input}
                             onClick={openModal}
-                            {...register("activity", {
+                            {...register("industry", {
                                 required: "Industry is required.",
                             })}
                             type="text"
@@ -91,8 +91,8 @@ export default function TellAboutYourself() {
                         <img src={arrow_grey} className={styles.arrow_grey} />
                     </div>
                     <p className={styles.error_text}>
-                        {errors.activity ? (
-                            <span>{errors.activity.message}</span>
+                        {errors.industry ? (
+                            <span>{errors.industry.message}</span>
                         ) : (
                             ""
                         )}

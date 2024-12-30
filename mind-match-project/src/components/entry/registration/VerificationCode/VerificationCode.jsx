@@ -12,14 +12,15 @@ function VerificationCode() {
     const navigate = useNavigate();
     const email = useSelector((state) => state.registrationData.email);
 
-    const [isSubmitting, setIsSubmitting] = useState(false); 
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [timer, setTimer] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const { 
-        register, 
-        formState: { errors, isValid }, 
-        handleSubmit 
+    const {
+        register,
+        formState: { errors, isValid },
+        handleSubmit,
+        reset,
     } = useForm({ mode: "onBlur" });
 
     useEffect(() => {
@@ -46,7 +47,8 @@ function VerificationCode() {
             if (response.status === 200) {
                 alert("Код верификации принят!");
                 startTimer();
-                navigate("/profile");
+                reset()
+                // navigate("/profile");
             }
         } catch (error) {
             setErrorMessage("Неверный код верификации. Попробуйте снова.");
@@ -59,12 +61,28 @@ function VerificationCode() {
         setTimer(60);
     };
 
+    const formatTime = (time) => {
+        const minutes = Math.floor(time / 60);
+        const seconds = time % 60;
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    };
+
+    const handleKewDown = (event) => {
+        if (event.key === "Enter" && isValid) {
+            event.preventDefault();
+            console.log("Enter pressed");
+            handleSubmit(onSubmit)()
+        }
+    }
+
     return (
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Verification code</h1>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className={`${styles.wrap_input} ${styles.wrap_firstInput}`}>
+            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
+                <div
+                    className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
+                >
                     <p className={styles.text}>Enter verification code:</p>
                     <input
                         className={styles.input}
@@ -88,7 +106,11 @@ function VerificationCode() {
                     </p>
                 </div>
 
-                {timer > 0 && <h2>Next attempt in: {timer} seconds</h2>}
+                {timer > 0 && (
+                    <p className={styles.subText}>
+                        {formatTime(timer)} you can send the code again
+                    </p>
+                )}
 
                 <Button
                     type="submit"

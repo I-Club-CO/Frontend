@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { type } from "@testing-library/user-event/dist/type";
 
 const initialState = {
     email: "",
@@ -7,7 +6,7 @@ const initialState = {
     username: "",
     birthday: "",
     gender: "",
-    activity: "",
+    industry: "",
     info: "",
     category: [],
     country: "",
@@ -16,7 +15,7 @@ const initialState = {
     phone: "79008007545",
 };
 
-const registrationDataSlice = createSlice({ 
+const registrationDataSlice = createSlice({
     name: "registrationData",
     initialState,
     reducers: {
@@ -35,8 +34,8 @@ const registrationDataSlice = createSlice({
         setGender(state, action) {
             state.gender = action.payload;
         },
-        setActivity(state, action) {
-            state.activity = action.payload;
+        setIndustry(state, action) {
+            state.industry = action.payload;
         },
         setInfo(state, action) {
             state.info = action.payload;
@@ -67,7 +66,7 @@ export const {
     setUsername,
     setBirthday,
     setGender,
-    setActivity,
+    setIndustry,
     setInfo,
     setCategory,
     setCountry,

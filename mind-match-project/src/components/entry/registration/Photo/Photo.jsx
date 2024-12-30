@@ -176,7 +176,7 @@
 
 // export default Photo;
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -189,6 +189,7 @@ import styles from "./Photo.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import Button from "../../entryCommonComponents/Button/Button";
 import camera from "../../../../assets/images/camera.svg";
+import { useDecryptPassword } from "../../entryCommonComponents/usePasswordCipher";
 
 function Photo() {
     const dispatch = useDispatch(),
@@ -205,21 +206,23 @@ function Photo() {
         mode: "onBlur",
     });
 
+    const decryptPassword = useDecryptPassword(allData.password);
+
     const sendDataToServer = async (data) => {
         try {
             const formData = new FormData();
             formData.append("email", allData.email);
-            formData.append("password", allData.password);
+            formData.append("password", decryptPassword);
             formData.append("username", allData.username);
             formData.append("birthday", allData.birthday);
             formData.append("gender", allData.gender);
-            formData.append("activity", allData.activity);
+            formData.append("industry", allData.industry);
             formData.append("info", allData.info);
             formData.append("category", allData.category);
             formData.append("country", allData.country);
             formData.append("city", allData.city);
             formData.append("phone", allData.phone);
-            formData.append("image1", data.image1[0]); // Используем файл из формы
+            formData.append("image1", data.image1[0]);
 
             const response = await axios.post(
                 "https://vsp44.pythonanywhere.com/register/",
@@ -230,7 +233,6 @@ function Photo() {
             if (response.status === 201) {
                 alert("Registration successful!");
                 navigate("/registration-verification-code");
-                dispatch(resetRegistrationData());
             }
         } catch (error) {
             console.error("Ошибка при отправке данных на сервер:", error);
@@ -239,7 +241,20 @@ function Photo() {
 
     const onSubmit = (data) => {
         sendDataToServer(data);
-    }
+    };
+    useEffect(() => {
+        const handleKeyPress = (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                handleSubmit(onSubmit)();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyPress);
+        return () => {
+            document.removeEventListener("keydown", handleKeyPress);
+        };
+    }, [handleSubmit, onSubmit]);
 
     return (
         <div className={styles.container}>

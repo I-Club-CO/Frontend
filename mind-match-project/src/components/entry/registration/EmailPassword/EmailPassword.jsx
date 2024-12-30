@@ -1,16 +1,18 @@
 import React from "react";
 import styles from "./EmailPassword.module.css";
-import { setEmail, setPassword } from "../../../store/registrationDataSlice";
+import { setEmail} from "../../../store/registrationDataSlice";
 import { useNavigate } from "react-router-dom";
 import Header from "../../entryCommonComponents/Header/Header";
 import Button from "../../entryCommonComponents/Button/Button";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { setPassword } from "../../../store/registrationDataSlice";
+import { useEncryptPassword } from "../../entryCommonComponents/usePasswordCipher";
 
 export default function EmailPassword() {
     const dispatch = useDispatch(),
         navigate = useNavigate();
-
+    
     const {
         register,
         formState: { errors, isValid },
@@ -23,10 +25,11 @@ export default function EmailPassword() {
 
     const [password, repeatPassword] = watch(["password", "repeatPassword"])
 
+    const encryptPassword = useEncryptPassword(password)
+
     const onSubmit = (data) => {
-        dispatch(setEmail(data.email));
-        dispatch(setPassword(data.password));
-        reset();
+        dispatch(setEmail(data.email))
+        dispatch(setPassword(encryptPassword))
 
         navigate("/registration-name-age-gender");
     };
