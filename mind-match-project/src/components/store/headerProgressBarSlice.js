@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     currentStep: 1,
     totalSteps: 6,
+    processType: "registration"
 }
 
 const progressBarSlice = createSlice({
@@ -19,9 +20,15 @@ const progressBarSlice = createSlice({
                 state.currentStep -= 1;
             }
         },
+        setProcessType: (state, action) => {
+            const {processType, totalSteps} = action.payload
+            state.processType = processType;
+            state.totalSteps = totalSteps;
+            state.currentStep = 1;
+        },
         resetProgressBar: () => initialState,
     },
 })
 
-export const { nextStep, prevStep, resetProgressBar } = progressBarSlice.actions;
+export const { nextStep, prevStep, resetProgressBar, setProcessType } = progressBarSlice.actions;
 export default progressBarSlice.reducer;

@@ -21,7 +21,7 @@ function VerificationCode() {
         formState: { errors, isValid },
         handleSubmit,
         reset,
-    } = useForm({ mode: "onBlur" });
+    } = useForm({ mode: "onChange" });
 
     useEffect(() => {
         let interval;
@@ -70,7 +70,6 @@ function VerificationCode() {
     const handleKewDown = (event) => {
         if (event.key === "Enter" && isValid) {
             event.preventDefault();
-            console.log("Enter pressed");
             handleSubmit(onSubmit)()
         }
     }

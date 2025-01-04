@@ -8,9 +8,9 @@ import Location from "./components/entry/registration/Location/Location";
 import Photo from "./components/entry/registration/Photo/Photo";
 import VerificationCode from "./components/entry/registration/VerificationCode/VerificationCode";
 import WelcomeBack from "./components/entry/login/WelcomeBack/WelcomeBack";
+import PasswordRecovery from "./components/entry/login/PasswordRecovery/PasswordRecovery";
 
 function App() {
-
     return (
         <Routes>
             <Route path="/" element={<Welcome />} />
@@ -33,6 +33,10 @@ function App() {
                 element={<VerificationCode />}
             />
             <Route path="/login-email-password" element={<WelcomeBack />} />
+            <Route
+                path="/login-password-recovery"
+                element={<PasswordRecovery />}
+            />
         </Routes>
     );
 }

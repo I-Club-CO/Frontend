@@ -8,9 +8,6 @@ function Button({ ...props}) {
         dispatch(nextStep());
     };
     return (
-        // <button disabled={props.disabled} type={props.type} className={styles.btn} onClick={next}>
-        //     {props.text}
-        // </button>
         <button className={styles.btn}
             {...props}
             onClick={next}

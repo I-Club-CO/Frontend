@@ -61,7 +61,7 @@
 // export default WelcomeBack;
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
     resetLoginData,
     setPassword,
@@ -72,6 +72,7 @@ import styles from "./WelcomeBack.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import { useForm } from "react-hook-form";
 import Button from "../../entryCommonComponents/Button/Button";
+import { setEmail } from "../../../store/registrationDataSlice";
 
 function WelcomeBack() {
     const dispatch = useDispatch(),
@@ -82,12 +83,12 @@ function WelcomeBack() {
 
 
     const submitData = async (data) => {
-        dispatch(setUsername(data.username));
+        dispatch(setEmail(data.email))
         try {
             const response = await axios.post(
                 "https://vsp44.pythonanywhere.com/login/",
                 {
-                    username: data.username,
+                    email: data.email,
                     password: data.password,
                 },
                 {
@@ -99,8 +100,7 @@ function WelcomeBack() {
 
             if (response.status === 200) {
                 alert("Вы успешно вошли");
-                navigate("/");
-                // dispatch(resetLoginData());
+                navigate("/registration-verification-code");
             } else {
                 alert("Неправильный email или пароль");
                 return;
@@ -134,28 +134,22 @@ function WelcomeBack() {
                 <div
                     className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
                 >
-                    <p className={styles.text}>Username:</p>
+                    <p className={styles.text}>Email:</p>
                     <input
                         className={styles.input}
                         type="text"
-                        {...register("username", {
-                            required: "Username is required.",
-                            minLength: {
-                                value: 3,
-                                message:
-                                    "Username must be at least 3 characters long.",
-                            },
-                            maxLength: {
-                                value: 20,
-                                message:
-                                    "Username must not exceed 20 characters.",
+                        {...register("email", {
+                            required: "Email is required.",
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: "Invalid email format.",
                             },
                         })}
-                        placeholder="Username..."
+                        placeholder="Email..."
                     />
                     <p className={styles.error_text}>
-                        {errors.username ? (
-                            <span>{errors.username.message}</span>
+                        {errors.email ? (
+                            <span>{errors.email.message}</span>
                         ) : (
                             ""
                         )}
@@ -184,9 +178,7 @@ function WelcomeBack() {
                         )}
                     </p>
                 </div>
-
-                <p className={styles.secondary_text}>I forgot my password</p>
-
+                <NavLink to="/login-password-recovery" className={styles.secondary_text}>I forgot my password</NavLink>
                 <Button type="submit" text="Next" disabled={!isValid}/>
             </form>
         </div>
