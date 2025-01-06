@@ -1,19 +1,19 @@
 import React from "react";
-import styles from "./GenderButton.module.css"
-function GenderButton({gender, gender_img, register}) {
+import styles from "./GenderButton.module.css";
+function GenderButton({genderChange, gender, gender_type, gender_img }) {
     return (
         <label
             className={`${styles.radio_button} ${
-                gender === "male" ? styles.button_active : ""
+                gender === gender_type ? styles.button_active : ""
             }`}
         >
             <input
-                register={register}
+                onChange={() => genderChange(gender_type)}
                 className={styles.radio_input}
                 type="radio"
-                value="male"
+                value={gender_type}
             />
-            <img src={gender_img} className={styles.button_img} />
+            <img src={gender_img} />
         </label>
     );
 }

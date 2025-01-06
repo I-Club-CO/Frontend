@@ -1,77 +1,66 @@
-import { useDispatch } from "react-redux";
-import {
-    setIndustry,
-    setCategory,
-    setInfo,
-} from "../../../store/registrationDataSlice";
-import { useNavigate } from "react-router-dom";
 import styles from "./TellAboutYourself.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
-import { useForm } from "react-hook-form";
-import Button from "../../entryCommonComponents/Button/Button";
-import tags from "./Tags";
-import { useState } from "react";
-import ModalIndustry from "./ModalIndustry/ModalIndustry";
-import industries from "./ModalIndustry/Industries";
-import arrow_grey from "../../../../assets/images/arrow_grey.svg";
+import InputFieldsTellAboutYourself from "./InputFieldsTellAboutYourself.jsx/InputFieldsTellAboutYourself";
 
 export default function TellAboutYourself() {
-    const dispatch = useDispatch(),
-        navigate = useNavigate();
+    // const dispatch = useDispatch(),
+    //     navigate = useNavigate();
 
-    const [checkedTags, setCheckedTags] = useState([]),
-        handleChangeTags = (event) => {
-            const tag = event.target.value;
+    // const [checkedTags, setCheckedTags] = useState([]),
+    //     handleChangeTags = (event) => {
+    //         const tag = event.target.value;
 
-            setCheckedTags((prevCheckedTags) =>
-                prevCheckedTags.includes(tag)
-                    ? prevCheckedTags.filter((item) => item !== tag)
-                    : [...prevCheckedTags, tag]
-            );
-        };
+    //         setCheckedTags((prevCheckedTags) =>
+    //             prevCheckedTags.includes(tag)
+    //                 ? prevCheckedTags.filter((item) => item !== tag)
+    //                 : [...prevCheckedTags, tag]
+    //         );
+    //     };
 
-    const {
-            register,
-            formState: { errors, isValid },
-            handleSubmit,
-            setValue,
-            trigger,
-            reset,
-        } = useForm({
-            mode: "onBlur",
-        }),
-        onSubmit = (data) => {
-            dispatch(setIndustry(data.industry));
-            dispatch(setInfo(data.info));
-            dispatch(setCategory(data.category));
-            reset();
+    // const {
+    //         register,
+    //         formState: { errors, isValid },
+    //         handleSubmit,
+    //         setValue,
+    //         trigger,
+    //         reset,
+    //     } = useForm({
+    //         mode: "onBlur",
+    //     })
+        // const onSubmit = (data) => {
+        //     dispatch(setIndustry(data.industry));
+        //     dispatch(setInfo(data.info));
+        //     dispatch(setCategory(data.category));
+        //     reset();
 
-            navigate("/registration-location");
-        },
-        handleKewDown = (event) => {
-            if (event.key === "Enter" && isValid) {
-                handleSubmit(onSubmit)()
-            }
-         }
+        //     navigate("/registration-location");
+        // },
+        
+        // const handleKewDown = (event) => {
+        //     if (event.key === "Enter" && isValid) {
+        //         handleSubmit(onSubmit)();
+        //     }
+        // };
 
-    const [isModalOpen, setIsModalOpen] = useState(false),
-        [selectedIndustry, setSelectedIndustry] = useState("");
+    // const [isModalOpen, setIsModalOpen] = useState(false),
+    //     [selectedIndustry, setSelectedIndustry] = useState("");
 
-    const openModal = () => setIsModalOpen(true),
-        closeModal = () => setIsModalOpen(false);
+    // const openModal = () => setIsModalOpen(true),
+    //     closeModal = () => setIsModalOpen(false);
 
-    const handleSelectedIndustry = (industry) => {
-        setSelectedIndustry(industry);
-        setValue("industry", industry);
-        trigger("industry");
-        closeModal();
-    };
+    // const handleSelectedIndustry = (industry) => {
+    //     setSelectedIndustry(industry);
+    //     setValue("industry", industry);
+    //     trigger("industry");
+    //     closeModal();
+    // };
 
     return (
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Tell about yourself</h1>
-            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
+            <InputFieldsTellAboutYourself/>
+            {/* <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
                 <div
                     className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
                 >
@@ -164,7 +153,7 @@ export default function TellAboutYourself() {
                     </p>
                 </div>
                 <Button type="submit" text="Next" disabled={!isValid} />
-            </form>
+            </form> */}
         </div>
     );
 }

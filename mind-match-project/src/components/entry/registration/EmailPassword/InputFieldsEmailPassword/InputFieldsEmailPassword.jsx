@@ -4,7 +4,7 @@ import Button from "../../../entryCommonComponents/Button/Button";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitEmailPassword from "../useOnSubmitEmailPassword";
 
-function InputFieldsEmailPassword({}) {
+function InputFieldsEmailPassword() {
     const { register, errors, isValid, handleSubmit, watch } = useRegForm(),
         [password, repeatPassword] = watch(["password", "repeatPassword"]),
         handleOnSubmit = useOnSubmitEmailPassword(password),

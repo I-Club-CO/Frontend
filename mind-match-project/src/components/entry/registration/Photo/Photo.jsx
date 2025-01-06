@@ -190,6 +190,7 @@ import Header from "../../entryCommonComponents/Header/Header";
 import Button from "../../entryCommonComponents/Button/Button";
 import camera from "../../../../assets/images/camera.svg";
 import { useDecryptPassword } from "../../entryCommonComponents/usePasswordCipher";
+import useEnterNextPage from "../../entryCommonComponents/useEnterNextPage";
 
 function Photo() {
     const dispatch = useDispatch(),
@@ -242,19 +243,7 @@ function Photo() {
     const onSubmit = (data) => {
         sendDataToServer(data);
     };
-    useEffect(() => {
-        const handleKeyPress = (event) => {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                handleSubmit(onSubmit)();
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyPress);
-        return () => {
-            document.removeEventListener("keydown", handleKeyPress);
-        };
-    }, [handleSubmit, onSubmit]);
+    useEnterNextPage({handleSubmit, onSubmit})
 
     return (
         <div className={styles.container}>

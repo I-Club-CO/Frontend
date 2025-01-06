@@ -9,6 +9,7 @@ export default function InputField({
     errors,
 }) {
 
+    console.log(errors)
     return (
         <div className={styles.wrap_input}>
             <p className={styles.text}>{text}</p>
@@ -16,7 +17,7 @@ export default function InputField({
                 className={styles.input}
                 type={type}
                 placeholder={placeholder}
-                {...register(name, validationRules)}
+                {...(register ? register(name, validationRules) : {})}
             />
             <p className={styles.error_text}>
                 {errors ? <span>{errors.message}</span> : ""}
