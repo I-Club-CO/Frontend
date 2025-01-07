@@ -9,7 +9,6 @@ export default function InputField({
     errors,
 }) {
 
-    console.log(errors)
     return (
         <div className={styles.wrap_input}>
             <p className={styles.text}>{text}</p>

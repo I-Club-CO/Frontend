@@ -13,7 +13,7 @@ function GenderButton({genderChange, gender, gender_type, gender_img }) {
                 type="radio"
                 value={gender_type}
             />
-            <img src={gender_img} />
+            <img src={gender_img} alt="Гендер"/>
         </label>
     );
 }

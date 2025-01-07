@@ -1,8 +1,13 @@
 import React from "react";
-import styles from "./InputSelectIndustry.module.css"
-import arrow_grey from "../../../../../assets/images/arrow_grey.svg"
+import styles from "./InputSelectIndustry.module.css";
+import arrow_grey from "../../../../../../assets/images/arrow_grey.svg";
 
-export default function InputSelectIndustry({register, errors, openModal, selectedIndustry}) {
+export default function InputSelectIndustry({
+    register,
+    errors,
+    openModal,
+    selectedIndustry,
+}) {
     return (
         <div>
             <div className={styles.sub_wrap_input}>
@@ -17,7 +22,11 @@ export default function InputSelectIndustry({register, errors, openModal, select
                     value={selectedIndustry}
                     readOnly
                 />
-                <img src={arrow_grey} className={styles.arrow_grey} alt="Стрелка"/>
+                <img
+                    src={arrow_grey}
+                    className={styles.arrow_grey}
+                    alt="Стрелка"
+                />
             </div>
             <p className={styles.error_text}>
                 {errors.industry ? <span>{errors.industry.message}</span> : ""}

@@ -3,6 +3,7 @@ import InputField from "../../../entryCommonComponents/InputField/InputField";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitLocation from "../useOnSubmitLocation";
 import Button from "../../../entryCommonComponents/Button/Button";
+import useEnterNextPageEasier from "../../../entryCommonComponents/useEnterNextPageEasier";
 
 function InputFieldsLocation() {
     const { register, errors, isValid, handleSubmit } = useRegForm();
@@ -12,14 +13,15 @@ function InputFieldsLocation() {
             handleOnSubmit(data);
         };
 
-    const handleKewDown = (event) => {
-        if (event.key === "Enter" && isValid) {
-            handleSubmit(onSubmit)();
-        }
-    };
+    const handleKeyDown = useEnterNextPageEasier();
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            onKeyDown={(event) =>
+                handleKeyDown(event, isValid, handleSubmit, onSubmit)
+            }
+        >
             <InputField
                 name="city"
                 text="City:"

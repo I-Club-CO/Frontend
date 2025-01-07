@@ -1,85 +1,118 @@
 import React, { useEffect, useState } from "react";
 import styles from "./VerificationCode.module.css";
-import { useNavigate } from "react-router-dom";
 import Header from "../../entryCommonComponents/Header/Header";
 import Button from "../../entryCommonComponents/Button/Button";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
+import useEnterNextPageEasier from "../../entryCommonComponents/useEnterNextPageEasier";
+import InputField from "../../entryCommonComponents/InputField/InputField";
+import useSendDataToServer from "./useSendDataToServer";
+import { useRegForm } from "../../entryCommonComponents/useRegLogForm";
+import useTimer from "./useTimer";
+import formatTime from "./formatTime";
+
+
+// Изменить все некорректные названия компонентов (с припиской use, где она и не нужна.
+// А нужна она только там, где используется какой-либо хук (useState, useEffect и т.д.))
+// Все же остальные компоненты являются обычными утилитарными, не нуждающимися в каких-либо приписках
+
 
 function VerificationCode() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const email = useSelector((state) => state.registrationData.email);
+    // const email = useSelector((state) => state.registrationData.email);
 
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [timer, setTimer] = useState(0);
+    // const [timer, setTimer] = useState(0);
     const [errorMessage, setErrorMessage] = useState("");
 
-    const {
-        register,
-        formState: { errors, isValid },
-        handleSubmit,
-        reset,
-    } = useForm({ mode: "onChange" });
+    // const {
+    //     register,
+    //     formState: { errors, isValid },
+    //     handleSubmit,
+    //     reset,
+    // } = useForm({ mode: "onChange" });
 
-    useEffect(() => {
-        let interval;
-        if (timer > 0) {
-            interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
-        }
-        return () => clearInterval(interval);
-    }, [timer]);
+    const {register, errors, isValid, handleSubmit, reset} = useRegForm()
 
-    const onSubmit = async (data) => {
-        setIsSubmitting(true);
-        setErrorMessage("");
-        try {
-            const response = await axios.post(
-                "https://vsp44.pythonanywhere.com/confirmation/",
-                {
-                    email: email,
-                    confirmation_code: Number(data.verify),
-                },
-                { headers: { "Content-Type": "application/json" } }
-            );
+    // useEffect(() => {
+    //     let interval;
+    //     if (timer > 0) {
+    //         interval = setInterval(() => setTimer((prev) => prev - 1), 1000);
+    //     }
+    //     return () => clearInterval(interval);
+    // }, [timer]);
+    const {timer, startTimer} = useTimer()
 
-            if (response.status === 200) {
-                alert("Код верификации принят!");
-                startTimer();
-                reset()
-                // navigate("/profile");
-            }
-        } catch (error) {
-            setErrorMessage("Неверный код верификации. Попробуйте снова.");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    // const onSubmit = async (data) => {
+    //     setIsSubmitting(true);
+    //     setErrorMessage("");
+    //     try {
+    //         const response = await axios.post(
+    //             "https://vsp44.pythonanywhere.com/confirmation/",
+    //             {
+    //                 email: email,
+    //                 confirmation_code: Number(data.verify),
+    //             },
+    //             { headers: { "Content-Type": "application/json" } }
+    //         );
 
-    const startTimer = () => {
-        setTimer(60);
-    };
+    //         if (response.status === 200) {
+    //             alert("Код верификации принят!");
+    //             startTimer();
+    //             reset();
+    //             // navigate("/profile");
+    //         }
+    //     } catch (error) {
+    //         setErrorMessage("Неверный код верификации. Попробуйте снова.");
+    //     } finally {
+    //         setIsSubmitting(false);
+    //     }
+    // };
+    // const startTimer = () => {
+    //     setTimer(60);
+    // };
 
-    const formatTime = (time) => {
-        const minutes = Math.floor(time / 60);
-        const seconds = time % 60;
-        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
-    };
+    const sendDataToServer = useSendDataToServer({setIsSubmitting, setErrorMessage, startTimer, reset})
 
-    const handleKewDown = (event) => {
-        if (event.key === "Enter" && isValid) {
-            event.preventDefault();
-            handleSubmit(onSubmit)()
-        }
+    const onSubmit = (data) => {
+        sendDataToServer(data)
     }
+
+    // const formatTime = (time) => {
+    //     const minutes = Math.floor(time / 60);
+    //     const seconds = time % 60;
+    //     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    // };
+
+    const handleKeyDown = useEnterNextPageEasier();
 
     return (
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Verification code</h1>
-            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKewDown}>
-                <div
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                onKeyDown={(event) =>
+                    handleKeyDown(event, isValid, handleSubmit, onSubmit)
+                }
+            >
+                <InputField
+                    name="verify"
+                    text="Enter verification code:"
+                    type="number"
+                    placeholder="Verification code..."
+                    register={register}
+                    validationRules={{
+                        required: "Verification code is required.",
+                        pattern: {
+                            value: /^[0-9]{6}$/,
+                            message: "Invalid verification code.",
+                        },
+                    }}
+                    errors={errors.verify}
+                    disabled={timer > 0 || isSubmitting}
+                />
+                {/* <div
                     className={`${styles.wrap_input} ${styles.wrap_firstInput}`}
                 >
                     <p className={styles.text}>Enter verification code:</p>
@@ -103,7 +136,7 @@ function VerificationCode() {
                             errorMessage && <span>{errorMessage}</span>
                         )}
                     </p>
-                </div>
+                </div> */}
 
                 {timer > 0 && (
                     <p className={styles.subText}>

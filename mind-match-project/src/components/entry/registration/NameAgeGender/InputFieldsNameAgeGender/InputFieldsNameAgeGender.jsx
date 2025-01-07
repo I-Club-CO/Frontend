@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./InputFieldsNameAgeGender.module.css";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import useOnSubmitNameAgeGender from "../useOnSubmitNameAgeGender";
-import GenderButton from "../GenderButton/GenderButton";
+import GenderButton from "./GenderButton/GenderButton";
 import male from "../../../../../assets/images/male.svg";
 import female from "../../../../../assets/images/female.svg";
 import Button from "../../../entryCommonComponents/Button/Button";
