@@ -6,7 +6,7 @@ import NameAgeGender from "./components/entry/registration/NameAgeGender/NameAge
 import TellAboutYourself from "./components/entry/registration/TellAboutYourself/TellAboutYourself";
 import Location from "./components/entry/registration/Location/Location";
 import Photo from "./components/entry/registration/Photo/Photo";
-import VerificationCode from "./components/entry/registration/VerificationCode/VerificationCode";
+import VerificationCode from "./components/entry/VerificationCode/VerificationCode"
 import WelcomeBack from "./components/entry/login/WelcomeBack/WelcomeBack";
 import PasswordRecovery from "./components/entry/login/PasswordRecovery/PasswordRecovery";
 

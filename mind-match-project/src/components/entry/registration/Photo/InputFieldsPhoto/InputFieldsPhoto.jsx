@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import { useDispatch } from "react-redux";
-import useSendDataToServer from "../useSendDataToServer";
+import useSendDataToServer from "../useSendDataToServerPhoto";
 import useEnterNextPage from "../../../entryCommonComponents/useEnterNextPage";
 import { setPhoto } from "../../../../store/registrationDataSlice";
 import Button from "../../../entryCommonComponents/Button/Button";

@@ -2,18 +2,16 @@ import axios from "axios";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
-export default function useSendDataToServer(
+export default function useSendDataToServerVerifyCode({
     setIsSubmitting,
-    setErrorMessage,
     startTimer,
     reset,
-) {
-    const email = useSelector((state) => state.registrationData.email);
+}) {
+    const email = useSelector((state) => state.loginData.email);
 
     const sendData = useCallback(
         async (data) => {
             setIsSubmitting(true);
-            setErrorMessage("");
             try {
                 const response = await axios.post(
                     "https://vsp44.pythonanywhere.com/confirmation/",
@@ -28,15 +26,15 @@ export default function useSendDataToServer(
                     alert("Код верификации принят!");
                     startTimer(60);
                     reset();
-                    // navigate("/profile");
+                    // Здесь будет переход к основному содержимому сайта
                 }
             } catch (error) {
-                setErrorMessage("Неверный код верификации. Попробуйте снова.");
+                alert("Ошибка отправки кода", error)
             } finally {
                 setIsSubmitting(false);
             }
         },
-        [email, reset, setErrorMessage, setIsSubmitting, startTimer]
+        [email, reset, setIsSubmitting, startTimer]
     );
     return sendData;
 }

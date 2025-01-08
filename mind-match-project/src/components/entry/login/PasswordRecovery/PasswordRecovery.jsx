@@ -4,23 +4,38 @@ import Header from "../../entryCommonComponents/Header/Header";
 import { useForm } from "react-hook-form";
 import Button from "../../entryCommonComponents/Button/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setEmail } from "../../../store/loginDataSlice";
+
+
+// Доделать рефакторинг оставшихся компонентов логина
+// и изучить детальнее вопрос куков, а также вопрос
+// касаемо того, как сохранять данные в redux-хранилище и в инпутах даже после перезагрузки страницы
+
 
 function PasswordRecovery() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const {
         register,
         formState: { errors, isValid },
         handleSubmit,
     } = useForm({ mode: "onChange" });
     const onSubmit = async (data) => {
+        dispatch(setEmail(data.email))
+
         try {
             const response = await axios.post(
-                "какой-то адрес",
+                "https://vsp44.pythonanywhere.com/recovery/",
                 { email: data.email },
                 { headers: { "Content-Type": "application/json" } }
             );
 
             if (response.status === 200) {
-                alert("Проверьте вашу почту для получения дальнейших инструкций.");
+                alert("Код верификации принят.\nПроверьте вашу почту для получения дальнейших инструкций.");
+                navigate("/registration-verification-code")
             } else {
                 alert("Произошла ошибка при отправке запроса.");
             }

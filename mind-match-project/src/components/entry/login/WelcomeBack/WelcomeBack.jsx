@@ -1,64 +1,4 @@
-// import React from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-// import { resetLoginData, setPassword, setUsername } from "../../../store/loginDataSlice";
-// import axios from "axios";
-// // import { useData } from "../../entryCommonComponents/useData";
 
-// function WelcomeBack() {
-//     const dispatch = useDispatch(),
-//         allLoginData = useSelector((state) => state.loginData);
-
-//     // const [username, changeUsername] = useData((state) => state.loginData.username, setUsername),
-//     //     [password, changePassword] = useData((state) => state.loginData.password, setPassword);
-
-//     const navigate = useNavigate(),
-//         back = () => {
-//             navigate(-1);
-//         };
-
-//     const submitData = async () => {
-//         try{
-//             const response = await axios.post("https://chat.serveo.net/login/", allLoginData, {
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 }
-//             })
-
-//             if (response.status === 200) {
-//                 alert("Вы успешно вошли");
-//                 dispatch(resetLoginData())
-//             } else {
-//                 alert("Неправильный email или пароль");
-//                 return;
-//             }
-//         } catch(error){
-//             console.error("Error: ", error);
-//             alert("Произошла ошибка при входе");
-//             return;
-//         }
-//     }
-
-//     return (
-//         <div>
-//             <input
-//                 type="text"
-//                 placeholder="Введите username"
-//                 onChange={()}
-//             />
-//             <input
-//                 type="password"
-//                 placeholder="Введите пароль"
-//             />
-//             <button onClick={submitData}>Войти</button>
-//             <button>я забыл пароль</button>
-//             <button>next page</button>
-//             <button onClick={back}>previous page</button>
-//         </div>
-//     );
-// }
-
-// export default WelcomeBack;
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -67,7 +7,7 @@ import {
     setPassword,
     setUsername,
 } from "../../../store/loginDataSlice";
-import axios, { all } from "axios";
+import axios from "axios";
 import styles from "./WelcomeBack.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import { useForm } from "react-hook-form";

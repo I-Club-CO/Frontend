@@ -8,13 +8,13 @@ import ModalIndustry from "./ModalIndustry/ModalIndustry";
 import InputSelectIndustry from "./InputSelectIndustry/InputSelectIndustry";
 import InputDescription from "./InputDescription/InputDescription"
 import InputTags from "./InputTags/InputTags";
-import useHandleChangeTags from "../useHandleChangeTags";
-import useEnterNextPageEasier from "../../../entryCommonComponents/useEnterNextPageEasier";
-import useHandleSelectedIndustry from "../useHandleSelectedIndustry";
+import handleChangeTags from "../handleChangeTags";
+import enterNextPageEasier from "../../../entryCommonComponents/enterNextPageEasier";
+import handleSelectedIndustry from "../handleSelectedIndustry";
 
 export default function InputFieldsTellAboutYourself() {
     const [checkedTags, setCheckedTags] = useState([]);
-    const handleChangeTags = useHandleChangeTags();
+    const handleChangedTags = handleChangeTags();
 
     const { register, errors, isValid, handleSubmit, setValue, trigger } =
             useRegForm({}, "onBlur"),
@@ -23,7 +23,7 @@ export default function InputFieldsTellAboutYourself() {
             handleOnSubmit(data);
         };
 
-    const handleKeyDown = useEnterNextPageEasier();
+    const handleKeyDown = enterNextPageEasier();
 
     const [isModalOpen, setIsModalOpen] = useState(false),
         [selectedIndustry, setSelectedIndustry] = useState("");
@@ -31,7 +31,7 @@ export default function InputFieldsTellAboutYourself() {
     const openModal = () => setIsModalOpen(true),
         closeModal = () => setIsModalOpen(false);
 
-    const handleSelectedIndustry = useHandleSelectedIndustry(
+    const handleSelectedIndustries = handleSelectedIndustry(
         setSelectedIndustry,
         setValue,
         trigger,
@@ -57,14 +57,14 @@ export default function InputFieldsTellAboutYourself() {
                     isOpen={isModalOpen}
                     onClose={closeModal}
                     industries={industries}
-                    onSelectIndustries={handleSelectedIndustry}
+                    onSelectIndustries={handleSelectedIndustries}
                 />
             </div>
             <InputDescription register={register} />
             <InputTags
                 checkedTags={checkedTags}
                 handleChangeTags={(event) =>
-                    handleChangeTags(event, setCheckedTags)
+                    handleChangedTags(event, setCheckedTags)
                 }
                 register={register}
                 errors={errors}

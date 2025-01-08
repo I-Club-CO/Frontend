@@ -1,4 +1,4 @@
-export default function useHandleSelectedIndustry(setSelectedIndustry, setValue, trigger, closeModal) {
+export default function handleSelectedIndustry(setSelectedIndustry, setValue, trigger, closeModal) {
     return (industry) => {
         setSelectedIndustry(industry);
         setValue("industry", industry);

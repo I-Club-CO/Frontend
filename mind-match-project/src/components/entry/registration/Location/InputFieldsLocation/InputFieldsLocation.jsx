@@ -3,7 +3,7 @@ import InputField from "../../../entryCommonComponents/InputField/InputField";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitLocation from "../useOnSubmitLocation";
 import Button from "../../../entryCommonComponents/Button/Button";
-import useEnterNextPageEasier from "../../../entryCommonComponents/useEnterNextPageEasier";
+import enterNextPageEasier from "../../../entryCommonComponents/enterNextPageEasier";
 
 function InputFieldsLocation() {
     const { register, errors, isValid, handleSubmit } = useRegForm();
@@ -13,7 +13,7 @@ function InputFieldsLocation() {
             handleOnSubmit(data);
         };
 
-    const handleKeyDown = useEnterNextPageEasier();
+    const handleKeyDown = enterNextPageEasier();
 
     return (
         <form

@@ -1,4 +1,4 @@
-export default function useHandleChangeTags() {
+export default function handleChangeTags() {
     return (event, setCheckedTags) => {
         const tag = event.target.value;
 

@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setEmail, setPassword } from "../../../store/registrationDataSlice";
-import { useEncryptPassword } from "../../entryCommonComponents/usePasswordCipher";
+import { encryptPassword } from "../../entryCommonComponents/passwordCipher";
 export default function useOnSubmitEmailPassword(password) {
     const dispatch = useDispatch(),
         navigate = useNavigate(),
-        encryptPassword = useEncryptPassword(password);
+        encryptingPassword = encryptPassword(password);
     return (data) => {
         dispatch(setEmail(data.email));
-        dispatch(setPassword(encryptPassword));
+        dispatch(setPassword(encryptingPassword));
         navigate("/registration-name-age-gender");
     };
 }
