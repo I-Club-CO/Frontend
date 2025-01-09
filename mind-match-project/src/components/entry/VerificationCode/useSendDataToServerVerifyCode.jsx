@@ -1,13 +1,22 @@
 import axios from "axios";
 import { useCallback } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 export default function useSendDataToServerVerifyCode({
     setIsSubmitting,
     startTimer,
     reset,
 }) {
-    const email = useSelector((state) => state.loginData.email);
+    const location = useLocation(),
+        queryParams = new URLSearchParams(location.search),
+        context = queryParams.get("context"); // "registration" или "login"
+
+    const email = useSelector((state) =>
+        context === "registration"
+            ? state.registrationData.email
+            : state.loginData.email
+    );
 
     const sendData = useCallback(
         async (data) => {
@@ -29,7 +38,7 @@ export default function useSendDataToServerVerifyCode({
                     // Здесь будет переход к основному содержимому сайта
                 }
             } catch (error) {
-                alert("Ошибка отправки кода", error)
+                alert("Ошибка отправки кода", error);
             } finally {
                 setIsSubmitting(false);
             }

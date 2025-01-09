@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import Button from "../../../entryCommonComponents/Button/Button";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitEmailPassword from "../useOnSubmitEmailPassword";
+import { useSelector } from "react-redux";
+import { decryptPassword } from "../../../entryCommonComponents/passwordCipher";
 
 function InputFieldsEmailPassword() {
-    const { register, errors, isValid, handleSubmit, watch } = useRegForm(),
-        [password, repeatPassword] = watch(["password", "repeatPassword"]),
-        handleOnSubmit = useOnSubmitEmailPassword(password),
+    const { register, errors, isValid, handleSubmit, watch, setValue } =
+            useRegForm(),
+        { email, password } = useSelector((state) => state.registrationData),
+        handleOnSubmit = useOnSubmitEmailPassword(watch("password")),
         onSubmit = (data) => {
             handleOnSubmit(data);
         };
+
+    useEffect(() => {
+        setValue("email", email);
+        setValue("password", decryptPassword(password));
+    }, [email, password, setValue]);
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <InputField
@@ -53,7 +61,7 @@ function InputFieldsEmailPassword() {
                 validationRules={{
                     required: "Please repeat your password.",
                     validate: (value) => {
-                        return value === password || "Passwords do not match.";
+                        return value === decryptPassword(password) || "Passwords do not match.";
                     },
                 }}
                 errors={errors.repeatPassword}

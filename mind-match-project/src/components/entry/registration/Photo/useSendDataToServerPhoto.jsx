@@ -34,7 +34,7 @@ export default function useSendDataToServerPhoto() {
 
                 if (response.status === 201) {
                     alert("Registration successful!");
-                    navigate("/registration-verification-code");
+                    navigate("/verification-code?context=registration");
                 }
             } catch (error) {
                 console.error("Ошибка при отправке данных на сервер:", error);

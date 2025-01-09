@@ -29,7 +29,7 @@ function App() {
             <Route path="/registration-location" element={<Location />} />
             <Route path="/registration-photo" element={<Photo />} />
             <Route
-                path="/registration-verification-code"
+                path="/verification-code"
                 element={<VerificationCode />}
             />
             <Route path="/login-email-password" element={<WelcomeBack />} />
