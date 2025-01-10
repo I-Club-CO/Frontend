@@ -32,10 +32,7 @@ export default function InputFieldsPhoto() {
                 setPhoto={setPhoto}
                 dispatch={dispatch}
             />
-            <PhotoPreview
-                photoPreview={photoPreview}
-                errors={errors}
-            />
+            <PhotoPreview photoPreview={photoPreview} errors={errors} />
             <Button type="submit" text="Next" />
         </form>
     );

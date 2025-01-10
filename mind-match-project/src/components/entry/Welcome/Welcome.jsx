@@ -3,7 +3,7 @@ import MainLogo from "./MainLogo/MainLogo";
 import RegLogSelectBlock from "./RegLogSelectBlock/RegLogSelectBlock";
 import RegCompsBlock from "./RegCompsBlock/RegCompsBlock";
 import FooterBlock from "./FooterBlock/FooterBlock";
-
+import Loader from "../../common/Loader";
 export default function Welcome() {
 
     return (

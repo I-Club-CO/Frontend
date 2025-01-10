@@ -16,6 +16,7 @@ function PasswordRecovery() {
 
     return (
         <div className={styles.container}>
+            
             <Header />
             <h1 className={styles.mainText}>Password recovery</h1>
             <form onSubmit={handleSubmit(onSubmit)}>

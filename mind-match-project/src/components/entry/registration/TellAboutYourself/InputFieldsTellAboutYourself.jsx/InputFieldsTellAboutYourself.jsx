@@ -6,15 +6,21 @@ import industries from "./ModalIndustry/Industries";
 import Button from "../../../entryCommonComponents/Button/Button";
 import ModalIndustry from "./ModalIndustry/ModalIndustry";
 import InputSelectIndustry from "./InputSelectIndustry/InputSelectIndustry";
-import InputDescription from "./InputDescription/InputDescription"
+import InputDescription from "./InputDescription/InputDescription";
 import InputTags from "./InputTags/InputTags";
 import handleChangeTags from "../handleChangeTags";
 import enterNextPageEasier from "../../../entryCommonComponents/enterNextPageEasier";
 import handleSelectedIndustry from "../handleSelectedIndustry";
+import { useSelector } from "react-redux";
+import useDefaultValuesInputTellAboutYourself from "./useDefaultValuesInputTellAboutYourself";
 
 export default function InputFieldsTellAboutYourself() {
-    const [checkedTags, setCheckedTags] = useState([]);
-    const handleChangedTags = handleChangeTags();
+    const { industry, info, category } = useSelector(
+        (state) => state.registrationData
+    );
+
+    const [checkedTags, setCheckedTags] = useState(category || []),
+        handleChangedTags = handleChangeTags();
 
     const { register, errors, isValid, handleSubmit, setValue, trigger } =
             useRegForm({}, "onBlur"),
@@ -37,6 +43,8 @@ export default function InputFieldsTellAboutYourself() {
         trigger,
         closeModal
     );
+
+    useDefaultValuesInputTellAboutYourself({ industry, info, setValue });
 
     return (
         <form

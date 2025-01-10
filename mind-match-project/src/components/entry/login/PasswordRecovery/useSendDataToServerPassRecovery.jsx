@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setEmail } from "../../../store/loginDataSlice";
+import { resetLoginData, setEmail } from "../../../store/loginDataSlice";
 import axios from "axios";
 
 export default function useSendDataToServerPassRecovery() {
@@ -20,6 +20,7 @@ export default function useSendDataToServerPassRecovery() {
     
             if (response.status === 200) {
                 alert("Email принят.\nПроверьте вашу почту для получения дальнейших инструкций.");
+                resetLoginData()
                 navigate("/verification-code?context=login");
             } else {
                 alert("Произошла ошибка при отправке запроса.");

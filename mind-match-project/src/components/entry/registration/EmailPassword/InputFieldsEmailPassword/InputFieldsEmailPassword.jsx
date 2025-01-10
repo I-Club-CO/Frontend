@@ -1,24 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import Button from "../../../entryCommonComponents/Button/Button";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitEmailPassword from "../useOnSubmitEmailPassword";
 import { useSelector } from "react-redux";
 import { decryptPassword } from "../../../entryCommonComponents/passwordCipher";
+import useDefaultValuesInputEmailPassword from "./useDefaultValuesInputEmailPassword";
 
 function InputFieldsEmailPassword() {
     const { register, errors, isValid, handleSubmit, watch, setValue } =
             useRegForm(),
+        repeatPassword = watch("password"),
         { email, password } = useSelector((state) => state.registrationData),
-        handleOnSubmit = useOnSubmitEmailPassword(watch("password")),
+        handleOnSubmit = useOnSubmitEmailPassword(repeatPassword),
         onSubmit = (data) => {
             handleOnSubmit(data);
         };
 
-    useEffect(() => {
-        setValue("email", email);
-        setValue("password", decryptPassword(password));
-    }, [email, password, setValue]);
+    const decryptedPassword = useMemo(
+        () => (password ? decryptPassword(password) : ""),
+        [password]
+    );
+
+    useDefaultValuesInputEmailPassword({ email, decryptedPassword, repeatPassword, setValue });
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <InputField
@@ -61,7 +66,10 @@ function InputFieldsEmailPassword() {
                 validationRules={{
                     required: "Please repeat your password.",
                     validate: (value) => {
-                        return value === decryptPassword(password) || "Passwords do not match.";
+                        return (
+                            value === repeatPassword ||
+                            "Passwords do not match."
+                        );
                     },
                 }}
                 errors={errors.repeatPassword}

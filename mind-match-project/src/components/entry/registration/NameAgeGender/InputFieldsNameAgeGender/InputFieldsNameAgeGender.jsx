@@ -8,23 +8,36 @@ import female from "../../../../../assets/images/female.svg";
 import Button from "../../../entryCommonComponents/Button/Button";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useEnterNextPage from "../../../entryCommonComponents/useEnterNextPage";
+import { useSelector } from "react-redux";
+import useDefaultValuesInputNameAgeGender from "./useDefaultValuesInputNameAgeGender";
 
 function InputFieldsNameAgeGender() {
-    const { register, errors, isValid, handleSubmit } = useRegForm();
+    const { register, errors, isValid, handleSubmit, setValue } = useRegForm(),
+        {
+            username,
+            birthday,
+            gender: storedGender,
+        } = useSelector((state) => state.registrationData),
+        [gender, setGender] = useState(storedGender || "");
 
     const handleOnSubmit = useOnSubmitNameAgeGender(),
         onSubmit = (data) => {
             handleOnSubmit({ ...data, gender });
         };
 
-    const [gender, setGender] = useState(""),
-        handleGenderChange = (value) => {
-            setGender(value);
-        };
+    const handleGenderChange = (value) => {
+        setGender(value);
+    };
 
     const isFormValid = isValid && gender;
 
     useEnterNextPage({ handleSubmit, onSubmit });
+
+    useDefaultValuesInputNameAgeGender({
+        username,
+        birthday,
+        setValue,
+    });
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +61,7 @@ function InputFieldsNameAgeGender() {
             />
 
             <InputField
-                name="age"
+                name="birthday"
                 text="Age:"
                 placeholder="Age..."
                 type="number"
@@ -64,7 +77,7 @@ function InputFieldsNameAgeGender() {
                         message: "You must be less than 100 years old.",
                     },
                 }}
-                errors={errors.age}
+                errors={errors.birthday}
             />
 
             <div className={styles.buttons_container}>

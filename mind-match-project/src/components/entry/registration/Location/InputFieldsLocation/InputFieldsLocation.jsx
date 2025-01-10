@@ -4,9 +4,12 @@ import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitLocation from "../useOnSubmitLocation";
 import Button from "../../../entryCommonComponents/Button/Button";
 import enterNextPageEasier from "../../../entryCommonComponents/enterNextPageEasier";
+import { useSelector } from "react-redux";
+import useDefaultValuesInputLocation from "./useDefaultValuesInputLocation";
 
 function InputFieldsLocation() {
-    const { register, errors, isValid, handleSubmit } = useRegForm();
+    const { register, errors, isValid, handleSubmit, setValue} = useRegForm(),
+        {city, country} = useSelector(state => state.registrationData)
 
     const handleOnSubmit = useOnSubmitLocation(),
         onSubmit = (data) => {
@@ -14,6 +17,8 @@ function InputFieldsLocation() {
         };
 
     const handleKeyDown = enterNextPageEasier();
+
+    useDefaultValuesInputLocation({city, country, setValue})
 
     return (
         <form

@@ -3,7 +3,8 @@ import { decryptPassword } from "../../entryCommonComponents/passwordCipher";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-
+import { resetRegistrationData } from "../../../store/registrationDataSlice";
+import Loader from "../../../common/Loader";
 export default function useSendDataToServerPhoto() {
     const allData = useSelector((state) => state.registrationData),
         navigate = useNavigate(),
@@ -11,6 +12,7 @@ export default function useSendDataToServerPhoto() {
 
     const sendData = useCallback(
         async (data) => {
+            <Loader/>
             try {
                 const formData = new FormData();
                 formData.append("email", allData.email);
@@ -34,6 +36,7 @@ export default function useSendDataToServerPhoto() {
 
                 if (response.status === 201) {
                     alert("Registration successful!");
+                    resetRegistrationData()
                     navigate("/verification-code?context=registration");
                 }
             } catch (error) {

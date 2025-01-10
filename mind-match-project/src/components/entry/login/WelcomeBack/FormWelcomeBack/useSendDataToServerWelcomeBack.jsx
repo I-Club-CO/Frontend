@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useCallback } from "react";
+import { resetLoginData } from "../../../../store/loginDataSlice";
 
 export default function useSendDataToServerWelcomeBack() {
 
@@ -20,6 +21,7 @@ export default function useSendDataToServerWelcomeBack() {
 
             if (response.status === 200) {
                 alert("Вы успешно вошли");
+                resetLoginData()
                 // navigate("/profile");
             } else {
                 alert("Неправильный email или пароль");
