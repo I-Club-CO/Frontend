@@ -9,7 +9,7 @@ import InputSelectIndustry from "./InputSelectIndustry/InputSelectIndustry";
 import InputDescription from "./InputDescription/InputDescription";
 import InputTags from "./InputTags/InputTags";
 import handleChangeTags from "../handleChangeTags";
-import enterNextPageEasier from "../../../entryCommonComponents/enterNextPageEasier";
+import useEnterNextPageEasier from "../../../entryCommonComponents/useEnterNextPageEasier";
 import handleSelectedIndustry from "../handleSelectedIndustry";
 import { useSelector } from "react-redux";
 import useDefaultValuesInputTellAboutYourself from "./useDefaultValuesInputTellAboutYourself";
@@ -29,7 +29,7 @@ export default function InputFieldsTellAboutYourself() {
             handleOnSubmit(data);
         };
 
-    const handleKeyDown = enterNextPageEasier();
+    const handleKeyDown = useEnterNextPageEasier();
 
     const [isModalOpen, setIsModalOpen] = useState(false),
         [selectedIndustry, setSelectedIndustry] = useState("");

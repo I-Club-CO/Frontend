@@ -10,16 +10,17 @@ import useDefaultValuesInputEmailPassword from "./useDefaultValuesInputEmailPass
 function InputFieldsEmailPassword() {
     const { register, errors, isValid, handleSubmit, watch, setValue } =
             useRegForm(),
-        repeatPassword = watch("password"),
-        { email, password } = useSelector((state) => state.registrationData),
+        password = watch("password"),
+        repeatPassword = watch("repeatPassword"),
+        { email, password: encryptedPassword } = useSelector((state) => state.registrationData),
         handleOnSubmit = useOnSubmitEmailPassword(repeatPassword),
         onSubmit = (data) => {
             handleOnSubmit(data);
         };
 
     const decryptedPassword = useMemo(
-        () => (password ? decryptPassword(password) : ""),
-        [password]
+        () => (encryptedPassword ? decryptPassword(encryptedPassword) : ""),
+        [encryptedPassword]
     );
 
     useDefaultValuesInputEmailPassword({ email, decryptedPassword, repeatPassword, setValue });
@@ -67,7 +68,7 @@ function InputFieldsEmailPassword() {
                     required: "Please repeat your password.",
                     validate: (value) => {
                         return (
-                            value === repeatPassword ||
+                            value === password ||
                             "Passwords do not match."
                         );
                     },

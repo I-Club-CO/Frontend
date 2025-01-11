@@ -4,9 +4,11 @@ import { useDispatch } from "react-redux";
 import useSendDataToServerPhoto from "../useSendDataToServerPhoto";
 import useEnterNextPage from "../../../entryCommonComponents/useEnterNextPage";
 import { setPhoto } from "../../../../store/registrationDataSlice";
-import Button from "../../../entryCommonComponents/Button/Button";
 import InputPhoto from "./InputPhoto/InputPhoto";
 import PhotoPreview from "./PhotoPreview/PhotoPreview";
+import Loader from "../../../../common/Loader";
+import ButtonPhoto from "./ButtonPhoto/ButtonPhoto";
+import { nextStep } from "../../../../store/headerProgressBarSlice";
 export default function InputFieldsPhoto() {
     const dispatch = useDispatch(),
         [photoPreview, setPhotoPreview] = useState(null);
@@ -16,24 +18,36 @@ export default function InputFieldsPhoto() {
         "onBlur"
     );
 
-    const sendDataToServer = useSendDataToServerPhoto();
+    const { sendData, dataSent } = useSendDataToServerPhoto();
 
-    const onSubmit = (data) => {
-        sendDataToServer(data);
+    // const onSuccess = () => {
+    //     dispatch(nextStep());
+    // };
+
+    const onSubmit = async (data) => {
+        sendData(data)
+
     };
     useEnterNextPage({ handleSubmit, onSubmit });
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <InputPhoto
-                register={register}
-                setValue={setValue}
-                setPhotoPreview={setPhotoPreview}
-                setPhoto={setPhoto}
-                dispatch={dispatch}
-            />
-            <PhotoPreview photoPreview={photoPreview} errors={errors} />
-            <Button type="submit" text="Next" />
-        </form>
+        <>
+            {dataSent ? (
+                <Loader />
+            ) : (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <InputPhoto
+                        register={register}
+                        setValue={setValue}
+                        setPhotoPreview={setPhotoPreview}
+                        setPhoto={setPhoto}
+                        dispatch={dispatch}
+                    />
+                    <PhotoPreview photoPreview={photoPreview} errors={errors} />
+                    {/* <Button type="submit" text="Next" /> */}
+                    <ButtonPhoto type="submit" />
+                </form>
+            )}
+        </>
     );
 }

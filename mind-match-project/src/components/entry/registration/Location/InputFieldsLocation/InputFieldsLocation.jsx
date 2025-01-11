@@ -3,30 +3,22 @@ import InputField from "../../../entryCommonComponents/InputField/InputField";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitLocation from "../useOnSubmitLocation";
 import Button from "../../../entryCommonComponents/Button/Button";
-import enterNextPageEasier from "../../../entryCommonComponents/enterNextPageEasier";
 import { useSelector } from "react-redux";
 import useDefaultValuesInputLocation from "./useDefaultValuesInputLocation";
 
 function InputFieldsLocation() {
-    const { register, errors, isValid, handleSubmit, setValue} = useRegForm(),
-        {city, country} = useSelector(state => state.registrationData)
+    const { register, errors, isValid, handleSubmit, setValue } = useRegForm(),
+        { city, country } = useSelector((state) => state.registrationData);
 
     const handleOnSubmit = useOnSubmitLocation(),
         onSubmit = (data) => {
             handleOnSubmit(data);
         };
 
-    const handleKeyDown = enterNextPageEasier();
-
-    useDefaultValuesInputLocation({city, country, setValue})
+    useDefaultValuesInputLocation({ city, country, setValue });
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            onKeyDown={(event) =>
-                handleKeyDown(event, isValid, handleSubmit, onSubmit)
-            }
-        >
+        <form onSubmit={handleSubmit(onSubmit)}>
             <InputField
                 name="city"
                 text="City:"

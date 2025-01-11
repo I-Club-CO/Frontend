@@ -2,17 +2,18 @@ import { useSelector } from "react-redux";
 import { decryptPassword } from "../../entryCommonComponents/passwordCipher";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { resetRegistrationData } from "../../../store/registrationDataSlice";
-import Loader from "../../../common/Loader";
+
 export default function useSendDataToServerPhoto() {
+    const [dataSent, setDataSent] = useState(false);
     const allData = useSelector((state) => state.registrationData),
         navigate = useNavigate(),
         decryptingPassword = decryptPassword(allData.password);
 
     const sendData = useCallback(
         async (data) => {
-            <Loader/>
+            setDataSent(true);
             try {
                 const formData = new FormData();
                 formData.append("email", allData.email);
@@ -36,14 +37,17 @@ export default function useSendDataToServerPhoto() {
 
                 if (response.status === 201) {
                     alert("Registration successful!");
-                    resetRegistrationData()
+                    resetRegistrationData();
+                    // onSuccess()
                     navigate("/verification-code?context=registration");
                 }
             } catch (error) {
                 console.error("Ошибка при отправке данных на сервер:", error);
+            } finally {
+                setDataSent(false);
             }
         },
         [allData, navigate, decryptingPassword]
     );
-    return sendData;
+    return { sendData, dataSent };
 }

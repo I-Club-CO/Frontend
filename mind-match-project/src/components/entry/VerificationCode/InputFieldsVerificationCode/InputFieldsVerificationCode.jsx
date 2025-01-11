@@ -3,12 +3,12 @@ import styles from "./InputFieldsVerificationCode.module.css";
 import { useRegForm } from "../../entryCommonComponents/useRegLogForm";
 import useTimer from "../useTimer";
 import useSendDataToServerVerifyCode from "../useSendDataToServerVerifyCode";
-import enterNextPageEasier from "../../entryCommonComponents/enterNextPageEasier";
+import useEnterNextPageEasier from "../../entryCommonComponents/useEnterNextPageEasier";
 import InputField from "../../entryCommonComponents/InputField/InputField";
 import formatTime from "../formatTime";
 import Button from "../../entryCommonComponents/Button/Button";
 export default function InputFieldsVerificationCode() {
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { register, errors, isValid, handleSubmit, reset } = useRegForm(),
         { timer, startTimer } = useTimer();
@@ -22,7 +22,7 @@ export default function InputFieldsVerificationCode() {
             sendDataToServer(data);
         };
 
-    const handleKeyDown = enterNextPageEasier();
+    const handleKeyDown = useEnterNextPageEasier();
 
     return (
         <form

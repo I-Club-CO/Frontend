@@ -1,10 +1,14 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { nextStep } from "../../store/headerProgressBarSlice";
 export default function useEnterNextPage ({handleSubmit, onSubmit}) {
+    const dispatch = useDispatch()
     useEffect(() => {
         const handleKeyPress = (event) => {
             if (event.key === "Enter") {
                 event.preventDefault();
                 handleSubmit(onSubmit)();
+                dispatch(nextStep())
             }
         };
     
@@ -12,5 +16,5 @@ export default function useEnterNextPage ({handleSubmit, onSubmit}) {
         return () => {
             document.removeEventListener("keydown", handleKeyPress);
         };
-    }, [handleSubmit, onSubmit]);
+    }, [dispatch, handleSubmit, onSubmit]);
 }
