@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Frontend/mind-match-project/static/css/main.226f8686.css",
+    "main.js": "/Frontend/mind-match-project/static/js/main.216480ab.js",
+    "static/media/camera.svg": "/Frontend/mind-match-project/static/media/camera.05e479e80b594ca06cd8918e9cec7ab4.svg",
+    "static/media/header_mini-logo.svg": "/Frontend/mind-match-project/static/media/header_mini-logo.e227de2ad704fac130006ea9ee03b9bd.svg",
+    "static/media/google.svg": "/Frontend/mind-match-project/static/media/google.575669891bef78637afd795bcce0bd1a.svg",
+    "static/media/apple.svg": "/Frontend/mind-match-project/static/media/apple.086bf37d082ce4d239989454b1c9c582.svg",
+    "static/media/female.svg": "/Frontend/mind-match-project/static/media/female.db084c7c58633d47941f748e36fc05da.svg",
+    "static/media/male.svg": "/Frontend/mind-match-project/static/media/male.b507ef65db22c9ec03e97e73e3a01268.svg",
+    "static/media/yandex.svg": "/Frontend/mind-match-project/static/media/yandex.e9cdac696b7ee4973a8fd950ad13bee3.svg",
+    "index.html": "/Frontend/mind-match-project/index.html",
+    "static/media/arrow_white.svg": "/Frontend/mind-match-project/static/media/arrow_white.d8cd8938a0a3fb012202b78c2c75b262.svg",
+    "static/media/arrow_grey.svg": "/Frontend/mind-match-project/static/media/arrow_grey.2db7585572129421ad08c7b5ea088397.svg",
+    "static/media/back-btn.svg": "/Frontend/mind-match-project/static/media/back-btn.ed24172c8f5ad85e2963dc9fe8ad65bf.svg",
+    "main.226f8686.css.map": "/Frontend/mind-match-project/static/css/main.226f8686.css.map",
+    "main.216480ab.js.map": "/Frontend/mind-match-project/static/js/main.216480ab.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.226f8686.css",
+    "static/js/main.216480ab.js"
+  ]
+}
