@@ -1,10 +1,12 @@
 import axios from "axios";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { resetLoginData } from "../../../../store/loginDataSlice";
 
 export default function useSendDataToServerWelcomeBack() {
+    const [dataSent, setDataSent] = useState(false);
 
-    const sendData = useCallback(async (data) => {
+    const sendData = useCallback(async (data, onSuccess) => {
+        setDataSent(true);
         try {
             const response = await axios.post(
                 "https://vsp44.pythonanywhere.com/login/",
@@ -20,8 +22,9 @@ export default function useSendDataToServerWelcomeBack() {
             );
 
             if (response.status === 200) {
-                alert("Вы успешно вошли");
-                resetLoginData()
+                console.log("Вы успешно вошли");
+                onSuccess();
+                resetLoginData();
                 // navigate("/profile");
             } else {
                 alert("Неправильный email или пароль");
@@ -31,7 +34,9 @@ export default function useSendDataToServerWelcomeBack() {
             console.error("Error: ", error);
             alert("Произошла ошибка при входе");
             return;
+        } finally {
+            setDataSent(false);
         }
     }, []);
-    return sendData;
+    return { sendData, dataSent };
 }

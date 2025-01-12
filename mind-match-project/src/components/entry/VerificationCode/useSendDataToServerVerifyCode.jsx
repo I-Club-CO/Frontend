@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
@@ -16,10 +16,12 @@ export default function useSendDataToServerVerifyCode({
         context === "registration"
             ? state.registrationData.email
             : state.loginData.email
-    );
+    ),
+    [dataSent, setDataSent] = useState(false)
 
-    const sendData = useCallback(
+    const sendDataToServer = useCallback(
         async (data) => {
+            setDataSent(true)
             setIsSubmitting(true);
             try {
                 const response = await axios.post(
@@ -32,7 +34,7 @@ export default function useSendDataToServerVerifyCode({
                 );
 
                 if (response.status === 200) {
-                    alert("Код верификации принят!");
+                    console.log("Код верификации принят!");
                     startTimer(60);
                     reset();
                     // Здесь будет переход к основному содержимому сайта
@@ -40,10 +42,11 @@ export default function useSendDataToServerVerifyCode({
             } catch (error) {
                 alert("Ошибка отправки кода", error);
             } finally {
+                setDataSent(false)
                 setIsSubmitting(false);
             }
         },
         [email, reset, setIsSubmitting, startTimer]
     );
-    return sendData;
+    return {sendDataToServer, dataSent};
 }

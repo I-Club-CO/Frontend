@@ -19,6 +19,7 @@
     border: 2px dashed #5eff5e;
     width: 335px;
     height: 300px;
+    border-radius: 18px;
 }
 .preview_photo {
     width: 100%;

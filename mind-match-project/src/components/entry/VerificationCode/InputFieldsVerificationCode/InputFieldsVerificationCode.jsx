@@ -7,13 +7,14 @@ import useEnterNextPageEasier from "../../entryCommonComponents/useEnterNextPage
 import InputField from "../../entryCommonComponents/InputField/InputField";
 import formatTime from "../formatTime";
 import Button from "../../entryCommonComponents/Button/Button";
+import Loader from "../../../common/Loader";
 export default function InputFieldsVerificationCode() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const { register, errors, isValid, handleSubmit, reset } = useRegForm(),
         { timer, startTimer } = useTimer();
 
-    const sendDataToServer = useSendDataToServerVerifyCode({
+    const { sendDataToServer, dataSent } = useSendDataToServerVerifyCode({
             setIsSubmitting,
             startTimer,
             reset,
@@ -25,40 +26,46 @@ export default function InputFieldsVerificationCode() {
     const handleKeyDown = useEnterNextPageEasier();
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            onKeyDown={(event) =>
-                handleKeyDown(event, isValid, handleSubmit, onSubmit)
-            }
-        >
-            <InputField
-                name="verify"
-                text="Enter verification code:"
-                type="number"
-                placeholder="Verification code..."
-                register={register}
-                validationRules={{
-                    required: "Verification code is required.",
-                    pattern: {
-                        value: /^[0-9]{6}$/,
-                        message: "Invalid verification code.",
-                    },
-                }}
-                errors={errors.verify}
-                disabled={timer > 0 || isSubmitting}
-            />
+        <>
+            {dataSent ? (
+                <Loader />
+            ) : (
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    onKeyDown={(event) =>
+                        handleKeyDown(event, isValid, handleSubmit, onSubmit)
+                    }
+                >
+                    <InputField
+                        name="verify"
+                        text="Enter verification code:"
+                        type="number"
+                        placeholder="Verification code..."
+                        register={register}
+                        validationRules={{
+                            required: "Verification code is required.",
+                            pattern: {
+                                value: /^[0-9]{6}$/,
+                                message: "Invalid verification code.",
+                            },
+                        }}
+                        errors={errors.verify}
+                        disabled={timer > 0 || isSubmitting}
+                    />
 
-            {timer > 0 && (
-                <p className={styles.subText}>
-                    {formatTime(timer)} you can send the code again
-                </p>
+                    {timer > 0 && (
+                        <p className={styles.subText}>
+                            {formatTime(timer)} you can send the code again
+                        </p>
+                    )}
+
+                    <Button
+                        type="submit"
+                        text="Next"
+                        disabled={!isValid || isSubmitting || timer > 0} // Блокировка кнопки
+                    />
+                </form>
             )}
-
-            <Button
-                type="submit"
-                text="Next"
-                disabled={!isValid || isSubmitting || timer > 0} // Блокировка кнопки
-            />
-        </form>
+        </>
     );
 }

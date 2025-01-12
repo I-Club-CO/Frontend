@@ -4,15 +4,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useCallback, useState } from "react";
 import { resetRegistrationData } from "../../../store/registrationDataSlice";
-
 export default function useSendDataToServerPhoto() {
-    const [dataSent, setDataSent] = useState(false);
+    const [dataSent, setDataSent] = useState(false)
     const allData = useSelector((state) => state.registrationData),
         navigate = useNavigate(),
         decryptingPassword = decryptPassword(allData.password);
 
     const sendData = useCallback(
-        async (data) => {
+        async (data, onSuccess) => {
             setDataSent(true);
             try {
                 const formData = new FormData();
@@ -36,9 +35,8 @@ export default function useSendDataToServerPhoto() {
                 );
 
                 if (response.status === 201) {
-                    alert("Registration successful!");
+                    onSuccess()
                     resetRegistrationData();
-                    // onSuccess()
                     navigate("/verification-code?context=registration");
                 }
             } catch (error) {
@@ -49,5 +47,5 @@ export default function useSendDataToServerPhoto() {
         },
         [allData, navigate, decryptingPassword]
     );
-    return { sendData, dataSent };
+    return { sendData, dataSent};
 }
