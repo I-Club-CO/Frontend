@@ -1,0 +1,30 @@
+.text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 19px;
+}
+.error_text {
+    color: #dc1d0d;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 14px;
+}
+.tags_container {
+    margin-top: 16px;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.tags {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    max-width: max-content;
+}
