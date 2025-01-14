@@ -10,7 +10,7 @@ import Loader from "./components/common/Loader";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-    <BrowserRouter>
+    <BrowserRouter basename="/Frontend">
         <Provider store={store}>
             <PersistGate loading={<Loader/>} persistor={persistor}>
                 <App/>
