@@ -1,5 +1,5 @@
 .text {
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 16px;
     font-weight: 600;
     line-height: 19px;
@@ -23,10 +23,18 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 17px;
-    color: #FFFFFF80;
+    color: #ffffff80;
+}
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 .error_text {
-    color: #DC1D0D;
+    color: #dc1d0d;
     margin-top: 8px;
     font-size: 14px;
     font-weight: 500;
