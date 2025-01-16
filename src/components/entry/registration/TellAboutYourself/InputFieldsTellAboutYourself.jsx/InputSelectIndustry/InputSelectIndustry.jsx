@@ -8,6 +8,7 @@ export default function InputSelectIndustry({
     openModal,
     selectedIndustry,
 }) {
+
     return (
         <div>
             <div className={styles.sub_wrap_input}>
