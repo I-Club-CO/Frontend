@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./InputFieldsTellAboutYourself.module.css";
 import useOnSubmitTellAboutYourself from "../useOnSubmitTellAboutYourself";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
@@ -29,10 +29,9 @@ export default function InputFieldsTellAboutYourself() {
             handleOnSubmit(data);
         };
 
-    const handleKeyDown = useEnterNextPageEasier();
 
     const [isModalOpen, setIsModalOpen] = useState(false),
-        [selectedIndustry, setSelectedIndustry] = useState("");
+        [selectedIndustry, setSelectedIndustry] = useState(industry);
 
     const openModal = () => setIsModalOpen(true),
         closeModal = () => setIsModalOpen(false);
@@ -45,6 +44,15 @@ export default function InputFieldsTellAboutYourself() {
     );
 
     useDefaultValuesInputTellAboutYourself({ industry, info, setValue });
+
+
+    const handleKeyDown = useEnterNextPageEasier();
+
+    useEffect(() => {
+        trigger(); // Это пересчитает isValid
+        setCheckedTags(category || []);
+        console.log("category changed", category);
+    }, [industry, info, category, trigger]);
 
     return (
         <form
