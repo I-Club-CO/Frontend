@@ -15,7 +15,7 @@ function Header() {
         };
     return (
         <div className={styles.header}>
-            <img src={back_btn} onClick={back} alt="Назад" />
+            <img src={back_btn} className={styles.back_btn} onClick={back} alt="Назад" />
             <ProgressBar />
             <img src={logo} alt="logo" />
         </div>
