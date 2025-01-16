@@ -50,8 +50,6 @@ export default function InputFieldsTellAboutYourself() {
 
     useEffect(() => {
         trigger(); // Это пересчитает isValid
-        setCheckedTags(category || []);
-        console.log("category changed", category);
     }, [industry, info, category, trigger]);
 
     return (
