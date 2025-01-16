@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitLocation from "../useOnSubmitLocation";
@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import useDefaultValuesInputLocation from "./useDefaultValuesInputLocation";
 
 function InputFieldsLocation() {
-    const { register, errors, isValid, handleSubmit, setValue } = useRegForm(),
+    const { register, errors, isValid, handleSubmit, setValue, trigger } = useRegForm(),
         { city, country } = useSelector((state) => state.registrationData);
 
     const handleOnSubmit = useOnSubmitLocation(),
@@ -16,6 +16,10 @@ function InputFieldsLocation() {
         };
 
     useDefaultValuesInputLocation({ city, country, setValue });
+
+    useEffect(() => {
+        trigger()
+    }, [city, country, trigger])
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
