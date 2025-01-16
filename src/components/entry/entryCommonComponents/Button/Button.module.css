@@ -12,6 +12,7 @@
     font-weight: 600;
     line-height: 17px;
     color: #87FF7B;
+    cursor: pointer;
 }
 .btn:disabled {
     color: #6fcc60;
