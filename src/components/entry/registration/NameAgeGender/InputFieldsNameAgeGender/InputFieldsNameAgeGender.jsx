@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./InputFieldsNameAgeGender.module.css";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import useOnSubmitNameAgeGender from "../useOnSubmitNameAgeGender";
@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import useDefaultValuesInputNameAgeGender from "./useDefaultValuesInputNameAgeGender";
 
 function InputFieldsNameAgeGender() {
-    const { register, errors, isValid, handleSubmit, setValue } = useRegForm(),
+    const { register, errors, isValid, handleSubmit, setValue, trigger } = useRegForm(),
         {
             username,
             birthday,
@@ -38,6 +38,11 @@ function InputFieldsNameAgeGender() {
         birthday,
         setValue,
     });
+
+    useEffect(() => {
+        trigger(); // Это пересчитает isValid
+    }, [username, birthday, gender, trigger]);
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
