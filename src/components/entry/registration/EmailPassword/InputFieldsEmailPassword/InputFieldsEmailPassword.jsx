@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import Button from "../../../entryCommonComponents/Button/Button";
 import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
@@ -8,7 +8,7 @@ import { decryptPassword } from "../../../entryCommonComponents/passwordCipher";
 import useDefaultValuesInputEmailPassword from "./useDefaultValuesInputEmailPassword";
 
 function InputFieldsEmailPassword() {
-    const { register, errors, isValid, handleSubmit, watch, setValue } =
+    const { register, errors, isValid, handleSubmit, watch, setValue, trigger } =
             useRegForm(),
         password = watch("password"),
         repeatPassword = watch("repeatPassword"),
@@ -24,6 +24,10 @@ function InputFieldsEmailPassword() {
     );
 
     useDefaultValuesInputEmailPassword({ email, decryptedPassword, repeatPassword, setValue });
+
+    useEffect(() => {
+        trigger(); // Это пересчитает isValid
+    }, [email, decryptedPassword, trigger]);
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
