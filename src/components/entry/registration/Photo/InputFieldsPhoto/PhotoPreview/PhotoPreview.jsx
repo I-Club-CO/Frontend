@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./PhotoPreview.module.css"
-export default function PhotoPreview({photoPreview, errors}) {
+export default function PhotoPreview({photoPreview}) {
     return (
         <div className={styles.wrap_input}>
             <p className={styles.text}>Photo:</p>
@@ -15,9 +15,6 @@ export default function PhotoPreview({photoPreview, errors}) {
                     />
                 )}
             </div>
-            <p className={styles.error_text}>
-                {errors.image1 ? <span>{errors.image1.message}</span> : ""}
-            </p>
         </div>
     );
 }

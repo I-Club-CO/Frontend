@@ -1,53 +1,27 @@
 import React from "react";
 import styles from "./InputPhoto.module.css";
 import camera from "../../../../../../assets/images/camera.svg";
-export default function InputPhoto({
-    register,
-    setValue,
-    setPhotoPreview,
-    setPhoto,
-    dispatch,
-}) {
+export default function InputPhoto({ setPhoto, setPhotoPreview }) {
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0]
+        if (file) {
+            setPhoto(file)
+            const reader = new FileReader()
+            reader.onloadend = () => {
+                setPhotoPreview(reader.result)
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+
     return (
         <div className={`${styles.wrap_firstInput} ${styles.wrap_input}`}>
             <input
-                {...register("image1", {
-                    validate: {
-                        validFileType: (value) => {
-                            const file = value?.[0];
-                            if (!file) return "File is required.";
-                            const validTypes = [
-                                "image/jpeg",
-                                "image/png",
-                                "image/gif",
-                            ];
-                            return (
-                                validTypes.includes(file.type) ||
-                                "Invalid file type. Allowed: JPEG, PNG, GIF."
-                            );
-                        },
-                        validFileSize: (value) => {
-                            const file = value?.[0];
-                            const maxSize = 1024 * 1024 * 5; // 5MB
-                            return (
-                                file.size <= maxSize ||
-                                "File size must not exceed 5MB."
-                            );
-                        },
-                    },
-                })}
                 id="file-input"
                 type="file"
-                accept="image/*"
-                onChange={(event) => {
-                    const file = event.target.files[0];
-                    if (file) {
-                        setValue("image1", [file]);
-                        const previewUrl = URL.createObjectURL(file);
-                        setPhotoPreview(previewUrl);
-                        dispatch(setPhoto(previewUrl));
-                    }
-                }}
+                accept="image/*,.png,.jpg,.gif,.web"
+                onChange={handleFileChange}
                 className={styles.hiddenInput}
             />
             <div className={styles.file_selection}>
