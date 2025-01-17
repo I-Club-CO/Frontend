@@ -8,6 +8,7 @@
     background-color: rgba(27, 27, 27, 0.5); 
     top: 0;
     left: 0;
+    z-index: 1000;
 }
 
 .spinner {

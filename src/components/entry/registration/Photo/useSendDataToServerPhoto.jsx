@@ -5,7 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useCallback, useState } from "react";
 import { resetRegistrationData } from "../../../store/registrationDataSlice";
 export default function useSendDataToServerPhoto() {
-    const [dataSent, setDataSent] = useState(false);
+    const [dataSent, setDataSent] = useState(false),
+        [errorDataSend, setErrorDataSend] = useState(false)
     const allData = useSelector((state) => state.registrationData),
         navigate = useNavigate(),
         decryptingPassword = decryptPassword(allData.password);
@@ -39,6 +40,7 @@ export default function useSendDataToServerPhoto() {
                     navigate("/verification-code?context=registration");
                 }
             } catch (error) {
+                setErrorDataSend(true)
                 console.error("Ошибка при отправке данных на сервер:", error);
             } finally {
                 setDataSent(false);
@@ -46,5 +48,5 @@ export default function useSendDataToServerPhoto() {
         },
         [allData, navigate, decryptingPassword]
     );
-    return { sendData, dataSent };
+    return { sendData, dataSent, errorDataSend };
 }
