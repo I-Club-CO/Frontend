@@ -1,0 +1,27 @@
+.main {
+    background-color: #282828;
+    width: 245px;
+    height: 68px;
+    border-radius: 10px;
+}
+.main_text {
+    display: block;
+    font-size: 16px;
+    color: white;
+    line-height: 19.2px;
+    font-weight: 600;
+    padding: 15px;
+}
+.button {
+    background-color: #282828;
+    width: 245px;
+    height: 35px;
+    border-radius: 10px;
+    text-align: center;
+    color: #DC1D0D;
+    font-size: 14px;
+    line-height: 16.8px;
+    font-weight: 500;
+    border: none;
+    margin-top: 5px;
+}
