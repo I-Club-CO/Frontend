@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Frontend/static/css/main.86b2b1a7.css",
-    "main.js": "/Frontend/static/js/main.2285919b.js",
+    "main.css": "/Frontend/static/css/main.20948c31.css",
+    "main.js": "/Frontend/static/js/main.d79291e0.js",
     "static/media/camera.svg": "/Frontend/static/media/camera.05e479e80b594ca06cd8918e9cec7ab4.svg",
     "static/media/header_mini-logo.svg": "/Frontend/static/media/header_mini-logo.e227de2ad704fac130006ea9ee03b9bd.svg",
     "static/media/google.svg": "/Frontend/static/media/google.575669891bef78637afd795bcce0bd1a.svg",
@@ -13,11 +13,11 @@
     "static/media/arrow_grey.svg": "/Frontend/static/media/arrow_grey.2db7585572129421ad08c7b5ea088397.svg",
     "index.html": "/Frontend/index.html",
     "static/media/back-btn.svg": "/Frontend/static/media/back-btn.ed24172c8f5ad85e2963dc9fe8ad65bf.svg",
-    "main.86b2b1a7.css.map": "/Frontend/static/css/main.86b2b1a7.css.map",
-    "main.2285919b.js.map": "/Frontend/static/js/main.2285919b.js.map"
+    "main.20948c31.css.map": "/Frontend/static/css/main.20948c31.css.map",
+    "main.d79291e0.js.map": "/Frontend/static/js/main.d79291e0.js.map"
   },
   "entrypoints": [
-    "static/css/main.86b2b1a7.css",
-    "static/js/main.2285919b.js"
+    "static/css/main.20948c31.css",
+    "static/js/main.d79291e0.js"
   ]
 }
