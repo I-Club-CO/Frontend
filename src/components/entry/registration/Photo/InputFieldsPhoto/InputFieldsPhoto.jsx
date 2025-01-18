@@ -8,7 +8,7 @@ import PhotoPreview from "./PhotoPreview/PhotoPreview";
 import Loader from "../../../../common/Loader";
 import ButtonPhoto from "./ButtonPhoto/ButtonPhoto";
 import { nextStep } from "../../../../store/headerProgressBarSlice";
-import UnsuccessfulAttempt from "../../../entryCommonComponents/UnsuccessfulAttempt/UnsuccessfulAttempt";
+import UnsuccessfulAttemptRegister from "./UnsuccessfulAttemptRegister/UnsuccessfulAttemptRegister";
 
 export default function InputFieldsPhoto() {
     const dispatch = useDispatch(),
@@ -29,13 +29,16 @@ export default function InputFieldsPhoto() {
 
     return (
         <>
-            {errorDataSend && <UnsuccessfulAttempt/>}
+            {errorDataSend && <UnsuccessfulAttemptRegister />}
 
             {dataSent ? (
                 <Loader />
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <InputPhoto setPhoto={setPhoto} setPhotoPreview={setPhotoPreview} />
+                    <InputPhoto
+                        setPhoto={setPhoto}
+                        setPhotoPreview={setPhotoPreview}
+                    />
                     <PhotoPreview photoPreview={photoPreview} />
                     <ButtonPhoto type="submit" />
                 </form>

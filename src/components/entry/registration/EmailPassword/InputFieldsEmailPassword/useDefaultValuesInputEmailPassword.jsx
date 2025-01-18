@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
-export default function useDefaultValuesInputEmailPassword({email, decryptedPassword, repeatPassword, setValue}) {
+export default function useDefaultValuesInputEmailPassword({email, decryptedPassword, setValue}) {
     useEffect(() => {
-        if (email) setValue("email", email);
-        if (decryptedPassword) setValue("password", decryptedPassword);
-        if (repeatPassword) setValue("repeatPassword", repeatPassword);
-    }, [email, decryptedPassword, repeatPassword, setValue])
+        if (email) setValue("email", email, { shouldDirty: false });
+        if (decryptedPassword) setValue("password", decryptedPassword, { shouldDirty: false });
+    }, [email, decryptedPassword, setValue])
 } 

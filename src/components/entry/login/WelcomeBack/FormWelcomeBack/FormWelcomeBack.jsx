@@ -8,9 +8,11 @@ import ButtonWelcomeBack from "../../ButtonWelcomeBack/ButtonWelcomeBack";
 import { useDispatch } from "react-redux";
 import { nextStep } from "../../../../store/headerProgressBarSlice";
 import Loader from "../../../../common/Loader";
+import UnsuccessfulAttemptLogin from "./UnsuccessfulAttemptLogin/UnsuccessfulAttemptLogin";
 
 export default function FormWelcomeBack() {
-    const { sendData, dataSent } = useSendDataToServerWelcomeBack();
+    const { sendData, dataSent, errorDataSend } =
+        useSendDataToServerWelcomeBack();
 
     const { register, errors, isValid, handleSubmit } = useRegForm(),
         dispatch = useDispatch();
@@ -22,6 +24,8 @@ export default function FormWelcomeBack() {
     };
     return (
         <>
+            {errorDataSend && <UnsuccessfulAttemptLogin />}
+            
             {dataSent ? (
                 <Loader />
             ) : (

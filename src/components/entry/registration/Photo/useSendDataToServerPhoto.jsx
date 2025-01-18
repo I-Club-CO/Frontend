@@ -41,7 +41,9 @@ export default function useSendDataToServerPhoto() {
                 }
             } catch (error) {
                 setErrorDataSend(true)
-                console.error("Ошибка при отправке данных на сервер:", error);
+                if (process.env.NODE_ENV === "development") {
+                    console.error("Ошибка регистрации:", error);
+                }
             } finally {
                 setDataSent(false);
             }

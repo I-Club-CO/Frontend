@@ -3,7 +3,8 @@ import { useCallback, useState } from "react";
 import { resetLoginData } from "../../../../store/loginDataSlice";
 
 export default function useSendDataToServerWelcomeBack() {
-    const [dataSent, setDataSent] = useState(false);
+    const [dataSent, setDataSent] = useState(false),
+        [errorDataSend, setErrorDataSend] = useState(false)
 
     const sendData = useCallback(async (data, onSuccess) => {
         setDataSent(true);
@@ -26,17 +27,15 @@ export default function useSendDataToServerWelcomeBack() {
                 onSuccess();
                 resetLoginData();
                 // navigate("/profile");
-            } else {
-                alert("Неправильный email или пароль");
-                return;
             }
         } catch (error) {
-            console.error("Error: ", error);
-            alert("Произошла ошибка при входе");
-            return;
+            setErrorDataSend(true)
+            if (process.env.NODE_ENV === "development") {
+                console.error("Ошибка авторизации:", error);
+            }
         } finally {
             setDataSent(false);
         }
     }, []);
-    return { sendData, dataSent };
+    return { sendData, dataSent, errorDataSend };
 }
