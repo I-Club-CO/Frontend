@@ -55,9 +55,9 @@ function InputFieldsEmailPassword() {
                 validationRules={{
                     required: "Password is required.",
                     pattern: {
-                        value: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+                        value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
                         message:
-                            "The password must be 8 characters, at least one uppercase letter, one lowercase letter and one number.",
+                            "Password must consist of 8 characters, at least one uppercase letter, one lowercase letter, one special character and one number.",
                     },
                 }}
                 errors={errors.password}

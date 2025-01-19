@@ -40,7 +40,7 @@ export default function InputFieldsVerificationCode() {
                         name="verify"
                         text="Enter verification code:"
                         type="number"
-                        placeholder="Verification code..."
+                        placeholder="000000"
                         register={register}
                         validationRules={{
                             required: "Verification code is required.",
