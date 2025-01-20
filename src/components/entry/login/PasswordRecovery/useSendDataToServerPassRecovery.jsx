@@ -7,7 +7,8 @@ import axios from "axios";
 export default function useSendDataToServerPassRecovery() {
     const dispatch = useDispatch(),
         navigate = useNavigate(),
-        [dataSent, setDataSent] = useState(false);
+        [dataSent, setDataSent] = useState(false),
+        [errorSend, setErrorSend] = useState(false)
 
     const sendDataToServer = useCallback(
         async (data, onSuccess) => {
@@ -31,12 +32,12 @@ export default function useSendDataToServerPassRecovery() {
                     alert("Произошла ошибка при отправке запроса.");
                 }
             } catch (e) {
-                console.error("Ошибка при отправке данных на сервер:", e);
+                setErrorSend(true)
             } finally {
                 setDataSent(false);
             }
         },
         [navigate, dispatch]
     );
-    return { sendDataToServer, dataSent };
+    return { sendDataToServer, dataSent, errorSend };
 }

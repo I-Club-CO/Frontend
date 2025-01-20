@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./PasswordRecovery.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import { useRegForm } from "../../entryCommonComponents/useRegLogForm";
@@ -8,11 +8,12 @@ import Loader from "../../../common/Loader";
 import { useDispatch } from "react-redux";
 import { nextStep } from "../../../store/headerProgressBarSlice";
 import ButtonWelcomeBack from "../ButtonWelcomeBack/ButtonWelcomeBack";
+import UnsuccessfulAttemptPassRec from "./UnsuccessfulAttemptPassRec/UnsuccessfulAttemptPassRec";
 
 function PasswordRecovery() {
     const { register, errors, isValid, handleSubmit } = useRegForm();
 
-    const { sendDataToServer, dataSent } = useSendDataToServerPassRecovery(),
+    const { sendDataToServer, dataSent, errorSend } = useSendDataToServerPassRecovery(),
         dispatch = useDispatch(),
         onSuccess = () => dispatch(nextStep()),
         onSubmit = (data) => {
@@ -23,6 +24,9 @@ function PasswordRecovery() {
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Password recovery</h1>
+
+            {errorSend && <UnsuccessfulAttemptPassRec />}
+
             {dataSent ? (
                 <Loader />
             ) : (
