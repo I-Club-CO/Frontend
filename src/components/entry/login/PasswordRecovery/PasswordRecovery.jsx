@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./PasswordRecovery.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import { useRegForm } from "../../entryCommonComponents/useRegLogForm";
@@ -20,12 +20,14 @@ function PasswordRecovery() {
             sendDataToServer(data, onSuccess);
         };
 
+    const [modalActive, setModalActive] = useState(false)
+
     return (
         <div className={styles.container}>
             <Header />
             <h1 className={styles.mainText}>Password recovery</h1>
 
-            {errorSend && <UnsuccessfulAttemptPassRec />}
+            {errorSend && <UnsuccessfulAttemptPassRec active={modalActive} setActive={setModalActive} />}
 
             {dataSent ? (
                 <Loader />

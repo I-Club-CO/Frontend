@@ -22,14 +22,9 @@ export default function useSendDataToServerPassRecovery() {
                 );
 
                 if (response.status === 200) {
-                    console.log(
-                        "Email принят.\nПроверьте вашу почту для получения дальнейших инструкций."
-                    );
                     onSuccess();
                     resetLoginData();
                     navigate("/verification-code?context=login");
-                } else {
-                    alert("Произошла ошибка при отправке запроса.");
                 }
             } catch (e) {
                 setErrorSend(true)
