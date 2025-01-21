@@ -34,5 +34,5 @@ export default function useSendDataToServerPassRecovery() {
         },
         [navigate, dispatch]
     );
-    return { sendDataToServer, dataSent, errorSend };
+    return { sendDataToServer, dataSent, errorSend, setErrorSend };
 }
