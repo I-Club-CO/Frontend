@@ -1,9 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Button.module.css";
-import { useDispatch } from "react-redux";
 import { nextStep } from "../../../store/headerProgressBarSlice";
-function Button({ ...props }) {
-    const dispatch = useDispatch(),
+import { useAppDispatch } from "../../../../hook";
+
+interface ButtonProps {
+
+}
+
+const Button: FC<ButtonProps> = ({ ...props }) => {
+    const dispatch = useAppDispatch(),
         next = () => {
             dispatch(nextStep());
         };

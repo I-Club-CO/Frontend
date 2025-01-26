@@ -1,10 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Loader.module.css"
 
-export default function Loader () {
+const Loader:FC = () => {
     return (
         <div className={styles.spinner_container}>
             <div className={styles.spinner}></div>
         </div>
     );
 };
+export default Loader
