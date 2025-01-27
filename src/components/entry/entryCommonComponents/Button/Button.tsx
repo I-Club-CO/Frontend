@@ -4,7 +4,7 @@ import { nextStep } from "../../../store/headerProgressBarSlice";
 import { useAppDispatch } from "../../../../hook";
 
 interface ButtonProps {
-
+    
 }
 
 const Button: FC<ButtonProps> = ({ ...props }) => {
