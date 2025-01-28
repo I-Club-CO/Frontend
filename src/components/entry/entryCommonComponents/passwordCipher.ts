@@ -1,13 +1,18 @@
 import CryptoJS from "crypto-js";
 
+// type EncryptedData = { 
+//     toString(formatter?: any): string
+// }
+
+const secretKey = "my-very-secure-key"
+
 const decryptPassword = (encryptPassword: string): string => {
-    const bytes = CryptoJS.AES.decrypt(encryptPassword, "secret-key");
-    console.log(bytes)
+    const bytes: any = CryptoJS.AES.decrypt(encryptPassword, secretKey);
     return bytes.toString(CryptoJS.enc.Utf8);
 };
-export { decryptPassword };
 
 const encryptPassword = (password: string): string => {
-    return CryptoJS.AES.encrypt(password, "secret-key").toString();
+    const encrypted: any = CryptoJS.AES.encrypt(password, secretKey)
+    return encrypted.toString()
 };
-export { encryptPassword };
+export { encryptPassword, decryptPassword };
