@@ -1,5 +1,6 @@
 import styles from "./InputField.module.css";
-export default function InputField({
+
+const InputField = ({
     name,
     text,
     placeholder,
@@ -7,8 +8,7 @@ export default function InputField({
     register,
     validationRules,
     errors,
-}) {
-
+}) => {
     return (
         <div className={styles.wrap_input}>
             <p className={styles.text}>{text}</p>
@@ -23,4 +23,5 @@ export default function InputField({
             </p>
         </div>
     );
-}
+};
+export default InputField;

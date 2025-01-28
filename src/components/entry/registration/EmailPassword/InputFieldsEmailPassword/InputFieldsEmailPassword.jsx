@@ -29,6 +29,7 @@ function InputFieldsEmailPassword() {
         trigger(); // Это пересчитает isValid
     }, [email, decryptedPassword, trigger]);
 
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <InputField
