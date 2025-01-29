@@ -9,8 +9,9 @@ import Photo from "./components/entry/registration/Photo/Photo";
 import VerificationCode from "./components/entry/VerificationCode/VerificationCode"
 import WelcomeBack from "./components/entry/login/WelcomeBack/WelcomeBack";
 import PasswordRecovery from "./components/entry/login/PasswordRecovery/PasswordRecovery";
+import { FC } from "react";
 
-function App() {
+const App: FC = () => {
     return (
         <Routes>
             <Route path="/" element={<Welcome />} />

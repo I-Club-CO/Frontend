@@ -11,7 +11,7 @@ interface RegistrationState {
     category: string[]
     country: string
     city: string
-    image1?: File
+    image1?: File | null
     phone: string
 }
 
@@ -67,7 +67,7 @@ const registrationDataSlice = createSlice({
         setPhone(state, action: PayloadAction<string>) {
             state.phone = action.payload;
         },
-        setPhoto(state, action: PayloadAction<File>) {
+        setPhoto(state, action: PayloadAction<File | null>) {
             state.image1 = action.payload;
         },
         resetRegistrationData: () => initialState,

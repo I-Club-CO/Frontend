@@ -1,13 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
-    email: "",
+interface LoginState{
+    email: string
+}
+
+const initialState: LoginState = {
+    email: ""
 },
     loginDataSlice = createSlice({
         name: "loginData",
         initialState,
         reducers: {
-            setEmail(state, action) {
+            setEmail(state, action: PayloadAction<string>) {
                 state.email = action.payload;
             },
             resetLoginData: () => initialState,
