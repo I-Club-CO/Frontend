@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 
 import styles from "./WelcomeBack.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import FormWelcomeBack from "./FormWelcomeBack/FormWelcomeBack";
 
-function WelcomeBack() {
+const WelcomeBack: FC = () => {
     return (
         <div className={styles.container}>
             <Header />

@@ -1,8 +1,9 @@
 import styles from "./TellAboutYourself.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import InputFieldsTellAboutYourself from "./InputFieldsTellAboutYourself.jsx/InputFieldsTellAboutYourself";
+import { FC } from "react";
 
-export default function TellAboutYourself() {
+const TellAboutYourself: FC = () => {
 
     return (
         <div className={styles.container}>
@@ -12,3 +13,4 @@ export default function TellAboutYourself() {
         </div>
     );
 }
+export default TellAboutYourself

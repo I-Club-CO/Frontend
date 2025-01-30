@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./VerificationCode.module.css";
 import Header from "../entryCommonComponents/Header/Header";
 import InputFieldsVerificationCode from "./InputFieldsVerificationCode/InputFieldsVerificationCode";
 
-function VerificationCode() {
+const VerificationCode: FC = () => {
     return (
         <div className={styles.container}>
             <Header />

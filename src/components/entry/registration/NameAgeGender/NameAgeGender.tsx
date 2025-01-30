@@ -1,8 +1,9 @@
 import styles from "./NameAgeGender.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import InputFieldsNameAgeGender from "./InputFieldsNameAgeGender/InputFieldsNameAgeGender";
+import { FC } from "react";
 
-export default function NameAgeGender() {
+const NameAgeGender: FC = () => {
     return (
         <div className={styles.container}>
             <Header />
@@ -12,3 +13,4 @@ export default function NameAgeGender() {
         </div>
     );
 }
+export default NameAgeGender

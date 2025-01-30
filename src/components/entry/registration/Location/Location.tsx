@@ -1,8 +1,9 @@
 import styles from "./Location.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import InputFieldsLocation from "./InputFieldsLocation/InputFieldsLocation";
+import { FC } from "react";
 
-function Location() {
+const Location: FC = () => {
     return (
         <div className={styles.container}>
             <Header />

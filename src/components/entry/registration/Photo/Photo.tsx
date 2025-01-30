@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./Photo.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import InputFieldsPhoto from "./InputFieldsPhoto/InputFieldsPhoto";
 
-function Photo() {
+const Photo: FC = () => {
 
     return (
         <div className={styles.container}>

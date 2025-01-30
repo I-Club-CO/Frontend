@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./EmailPassword.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
 import InputFieldsEmailPassword from "./InputFieldsEmailPassword/InputFieldsEmailPassword";
 
-export default function EmailPassword() {
+const EmailPassword: FC = () => {
     return (
         <div className={styles.container}>
             <Header />
@@ -16,3 +16,4 @@ export default function EmailPassword() {
         </div>
     );
 }
+export default EmailPassword

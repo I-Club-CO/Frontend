@@ -3,8 +3,9 @@ import MainLogo from "./MainLogo/MainLogo";
 import RegLogSelectBlock from "./RegLogSelectBlock/RegLogSelectBlock";
 import RegCompsBlock from "./RegCompsBlock/RegCompsBlock";
 import FooterBlock from "./FooterBlock/FooterBlock";
-export default function Welcome() {
+import React, { FC } from 'react'
 
+const Welcome: FC = () => {
     return (
         <div className={styles.mainBlock}>
             <MainLogo />
@@ -14,3 +15,4 @@ export default function Welcome() {
         </div>
     );
 }
+export default Welcome
