@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styles from "./MainLogo.module.css";
-const MainLogo: FC =() => {
+const MainLogo: FC = () => {
     return (
         <div className={styles.main}>
             <h1 className={styles.mainText}>

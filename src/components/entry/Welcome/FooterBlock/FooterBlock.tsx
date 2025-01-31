@@ -1,6 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./FooterBlock.module.css"
-function FooterBlock() {
+const FooterBlock: FC = () => {
     return (
         <div className={styles.footerBlock}>
             <p className={styles.footerBlock_text}>Terms of use</p>

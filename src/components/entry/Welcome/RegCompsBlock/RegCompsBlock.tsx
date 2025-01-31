@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from './RegCompsBlock.module.css'
 import google from "../../../../assets/images/google.svg";
 import yandex from "../../../../assets/images/yandex.svg";
 import apple from "../../../../assets/images/apple.svg";
-function RegCompsBlock() {
+const RegCompsBlock: FC = () => {
     return (
         <div className={styles.regCompsBlock}>
             <p className={styles.mediumText}>Or sign up with:</p>

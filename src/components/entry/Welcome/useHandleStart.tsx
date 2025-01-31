@@ -1,18 +1,19 @@
-import { useDispatch } from "react-redux";
 import { setProcessType } from "../../store/headerProgressBarSlice";
+import { useAppDispatch } from "../../../hook";
 
 const useHandleStart = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const handleRegistrationStart = () => {
+    const handleRegistrationStart = (): void => {
         dispatch(
             setProcessType({ processType: "registration", totalSteps: 6 })
         );
     };
 
-    const handleLoginStart = () => {
+    const handleLoginStart = (): void => {
         dispatch(setProcessType({ processType: "login", totalSteps: 2 }));
     };
+
 
     return { handleRegistrationStart, handleLoginStart };
 };
