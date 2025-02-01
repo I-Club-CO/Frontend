@@ -1,6 +1,19 @@
-import styles from "./InputField.module.css";
 
-const InputField = ({
+import { FieldError, FieldValues, UseFormRegister } from "react-hook-form";
+import styles from "./InputField.module.css";
+import { FC } from "react";
+
+interface InputFieldProps<TInputFieldValues> {
+    name: string;
+    text: string;
+    placeholder: string;
+    type: "text" | "number" | "password";
+    register: UseFormRegister<TInputFieldValues>;
+    validationRules: any;
+    errors: FieldError;
+}
+
+const InputField: FC<InputFieldProps> = ({
     name,
     text,
     placeholder,

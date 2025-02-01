@@ -1,20 +1,34 @@
-import React, { useEffect, useMemo } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import Button from "../../../entryCommonComponents/Button/Button";
-import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitEmailPassword from "../useOnSubmitEmailPassword";
-import { useSelector } from "react-redux";
 import { decryptPassword } from "../../../entryCommonComponents/passwordCipher";
 import useDefaultValuesInputEmailPassword from "./useDefaultValuesInputEmailPassword";
+import { useAppSelector } from "../../../../../hook";
+import { useForm } from "react-hook-form";
 
-function InputFieldsEmailPassword() {
-    const { register, errors, isValid, handleSubmit, watch, setValue, trigger } =
-            useRegForm(),
+export interface FormValues {
+    email: string;
+    password: string;
+    repeatPassword: string;
+}
+
+const InputFieldsEmailPassword: FC = () => {
+    const {
+            register,
+            formState: { errors, isValid },
+            handleSubmit,
+            watch,
+            setValue,
+            trigger,
+        } = useForm<FormValues>({ defaultValues: {}, mode: "onChange" }),
         password = watch("password"),
         repeatPassword = watch("repeatPassword"),
-        { email, password: encryptedPassword } = useSelector((state) => state.registrationData),
+        { email, password: encryptedPassword } = useAppSelector(
+            (state) => state.registrationData
+        ),
         handleOnSubmit = useOnSubmitEmailPassword(repeatPassword),
-        onSubmit = (data) => {
+        onSubmit = (data: FormValues): void => {
             handleOnSubmit(data);
         };
 
@@ -23,12 +37,11 @@ function InputFieldsEmailPassword() {
         [encryptedPassword]
     );
 
-    useDefaultValuesInputEmailPassword({ email, decryptedPassword, repeatPassword, setValue });
+    useDefaultValuesInputEmailPassword({ email, decryptedPassword, setValue });
 
     useEffect(() => {
         trigger(); // Это пересчитает isValid
     }, [email, decryptedPassword, trigger]);
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -71,11 +84,8 @@ function InputFieldsEmailPassword() {
                 register={register}
                 validationRules={{
                     required: "Please repeat your password.",
-                    validate: (value) => {
-                        return (
-                            value === password ||
-                            "Passwords do not match."
-                        );
+                    validate: (value: string) => {
+                        return value === password || "Passwords do not match.";
                     },
                 }}
                 errors={errors.repeatPassword}
@@ -84,6 +94,6 @@ function InputFieldsEmailPassword() {
             <Button type="submit" text={"Next"} disabled={!isValid} />
         </form>
     );
-}
+};
 
 export default InputFieldsEmailPassword;

@@ -3,7 +3,7 @@ import styles from "./FormWelcomeBack.module.css";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import { NavLink } from "react-router-dom";
 import useSendDataToServerWelcomeBack from "./useSendDataToServerWelcomeBack";
-import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
+import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import ButtonWelcomeBack from "../../ButtonWelcomeBack/ButtonWelcomeBack";
 import { useDispatch } from "react-redux";
 import { nextStep } from "../../../../store/headerProgressBarSlice";
@@ -14,7 +14,7 @@ export default function FormWelcomeBack() {
     const { sendData, dataSent, errorDataSend } =
         useSendDataToServerWelcomeBack();
 
-    const { register, errors, isValid, handleSubmit } = useRegForm(),
+    const { register, errors, isValid, handleSubmit } = useRegLogForm(),
         dispatch = useDispatch();
 
     const onSuccess = () => dispatch(nextStep());

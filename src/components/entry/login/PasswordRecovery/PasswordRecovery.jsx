@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./PasswordRecovery.module.css";
 import Header from "../../entryCommonComponents/Header/Header";
-import { useRegForm } from "../../entryCommonComponents/useRegLogForm";
+import { useRegLogForm } from "../../entryCommonComponents/useRegLogForm";
 import useSendDataToServerPassRecovery from "./useSendDataToServerPassRecovery";
 import InputField from "../../entryCommonComponents/InputField/InputField";
 import Loader from "../../../common/Loader";
@@ -11,7 +11,7 @@ import ButtonWelcomeBack from "../ButtonWelcomeBack/ButtonWelcomeBack";
 import UnsuccessfulAttemptPassRec from "./UnsuccessfulAttemptPassRec/UnsuccessfulAttemptPassRec";
 
 function PasswordRecovery() {
-    const { register, errors, isValid, handleSubmit, setValue } = useRegForm();
+    const { register, errors, isValid, handleSubmit, setValue } = useRegLogForm();
 
     const { sendDataToServer, dataSent, errorSend, setErrorSend } = useSendDataToServerPassRecovery(),
         dispatch = useDispatch(),

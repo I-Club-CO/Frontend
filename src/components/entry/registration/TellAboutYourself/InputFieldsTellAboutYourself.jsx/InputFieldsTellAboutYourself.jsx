@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./InputFieldsTellAboutYourself.module.css";
 import useOnSubmitTellAboutYourself from "../useOnSubmitTellAboutYourself";
-import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
+import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import industries from "./ModalIndustry/Industries";
 import Button from "../../../entryCommonComponents/Button/Button";
 import ModalIndustry from "./ModalIndustry/ModalIndustry";
@@ -23,7 +23,7 @@ export default function InputFieldsTellAboutYourself() {
         handleChangedTags = handleChangeTags();
 
     const { register, errors, isValid, handleSubmit, setValue, trigger } =
-            useRegForm({}, "onBlur"),
+            useRegLogForm({}, "onBlur"),
         handleOnSubmit = useOnSubmitTellAboutYourself(),
         onSubmit = (data) => {
             handleOnSubmit(data);

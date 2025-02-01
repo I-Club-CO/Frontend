@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
+import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import { useDispatch } from "react-redux";
 import useSendDataToServerPhoto from "../useSendDataToServerPhoto";
 import useEnterNextPagePhoto from "./useEnterNextPagePhoto";
@@ -15,7 +15,7 @@ export default function InputFieldsPhoto() {
         [photoPreview, setPhotoPreview] = useState(""),
         [photo, setPhoto] = useState(null);
 
-    const { handleSubmit } = useRegForm({}, "onBlur");
+    const { handleSubmit } = useRegLogForm({}, "onBlur");
 
     const { sendData, dataSent, errorDataSend } = useSendDataToServerPhoto();
 

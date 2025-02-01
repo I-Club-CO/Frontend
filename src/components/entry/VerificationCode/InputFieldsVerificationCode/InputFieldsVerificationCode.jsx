@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./InputFieldsVerificationCode.module.css";
-import { useRegForm } from "../../entryCommonComponents/useRegLogForm";
+import { useRegLogForm } from "../../entryCommonComponents/useRegLogForm";
 import useTimer from "../useTimer";
 import useSendDataToServerVerifyCode from "../useSendDataToServerVerifyCode";
 import useEnterNextPageEasier from "../../entryCommonComponents/useEnterNextPageEasier";
@@ -11,7 +11,7 @@ import Loader from "../../../common/Loader";
 export default function InputFieldsVerificationCode() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { register, errors, isValid, handleSubmit, reset } = useRegForm(),
+    const { register, errors, isValid, handleSubmit, reset } = useRegLogForm(),
         { timer, startTimer } = useTimer();
 
     const { sendDataToServer, dataSent } = useSendDataToServerVerifyCode({

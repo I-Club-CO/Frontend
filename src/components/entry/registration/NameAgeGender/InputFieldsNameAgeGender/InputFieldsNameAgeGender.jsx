@@ -6,13 +6,13 @@ import GenderButton from "./GenderButton/GenderButton";
 import male from "../../../../../assets/images/male.svg";
 import female from "../../../../../assets/images/female.svg";
 import Button from "../../../entryCommonComponents/Button/Button";
-import { useRegForm } from "../../../entryCommonComponents/useRegLogForm";
+import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import useEnterNextPage from "../../../entryCommonComponents/useEnterNextPage";
 import { useSelector } from "react-redux";
 import useDefaultValuesInputNameAgeGender from "./useDefaultValuesInputNameAgeGender";
 
 function InputFieldsNameAgeGender() {
-    const { register, errors, isValid, handleSubmit, setValue, trigger } = useRegForm(),
+    const { register, errors, isValid, handleSubmit, setValue, trigger } = useRegLogForm(),
         {
             username,
             birthday,
