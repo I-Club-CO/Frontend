@@ -6,7 +6,7 @@ interface InputFieldProps<TInputFieldValues extends FieldValues, TInputFieldsNam
     name: TInputFieldsName;
     text: string;
     placeholder: string;
-    type: "text" | "number" | "password";
+    type?: "text" | "number" | "password";
     register: UseFormRegister<TInputFieldValues>;
     validationRules: RegisterOptions<TInputFieldValues, TInputFieldsName>;
     errors?: FieldError;

@@ -11,10 +11,15 @@ import useDefaultValuesInputNameAgeGender from "./useDefaultValuesInputNameAgeGe
 import { useForm } from "react-hook-form";
 import { useAppSelector } from "../../../../../hook";
 
-interface FormValues {
+enum Gender {
+    male = "male",
+    female = "female"
+}
+
+export interface FormValues {
     username: string
     birthday: number
-    gender: string
+    gender: Gender
 }
 
 const InputFieldsNameAgeGender: FC = () => {
@@ -27,11 +32,11 @@ const InputFieldsNameAgeGender: FC = () => {
         [gender, setGender] = useState(storedGender || "");
 
     const handleOnSubmit = useOnSubmitNameAgeGender(),
-        onSubmit = (data) => {
+        onSubmit = (data: FormValues) => {
             handleOnSubmit({ ...data, gender });
         };
 
-    const handleGenderChange = (value) => {
+    const handleGenderChange = (value: string): void => {
         setGender(value);
     };
 
@@ -52,7 +57,7 @@ const InputFieldsNameAgeGender: FC = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField
+            <InputField<FormValues, "username">
                 name="username"
                 text="Username:"
                 placeholder="Username..."
@@ -71,7 +76,7 @@ const InputFieldsNameAgeGender: FC = () => {
                 errors={errors.username}
             />
 
-            <InputField
+            <InputField<FormValues, "birthday">
                 name="birthday"
                 text="Age:"
                 placeholder="Age..."
