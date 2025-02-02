@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./InputFieldsNameAgeGender.module.css";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import useOnSubmitNameAgeGender from "../useOnSubmitNameAgeGender";
@@ -6,18 +6,24 @@ import GenderButton from "./GenderButton/GenderButton";
 import male from "../../../../../assets/images/male.svg";
 import female from "../../../../../assets/images/female.svg";
 import Button from "../../../entryCommonComponents/Button/Button";
-import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import useEnterNextPage from "../../../entryCommonComponents/useEnterNextPage";
-import { useSelector } from "react-redux";
 import useDefaultValuesInputNameAgeGender from "./useDefaultValuesInputNameAgeGender";
+import { useForm } from "react-hook-form";
+import { useAppSelector } from "../../../../../hook";
 
-function InputFieldsNameAgeGender() {
-    const { register, errors, isValid, handleSubmit, setValue, trigger } = useRegLogForm(),
+interface FormValues {
+    username: string
+    birthday: number
+    gender: string
+}
+
+const InputFieldsNameAgeGender: FC = () => {
+    const { register, formState: {errors, isValid}, handleSubmit, setValue, trigger } = useForm<FormValues>({defaultValues: {}, mode: "onChange"}),
         {
             username,
             birthday,
             gender: storedGender,
-        } = useSelector((state) => state.registrationData),
+        } = useAppSelector((state) => state.registrationData),
         [gender, setGender] = useState(storedGender || "");
 
     const handleOnSubmit = useOnSubmitNameAgeGender(),

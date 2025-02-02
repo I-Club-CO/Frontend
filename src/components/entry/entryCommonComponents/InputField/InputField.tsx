@@ -1,5 +1,5 @@
 
-import { FieldError, FieldValues, Path, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldValues, Path, RegisterOptions, UseFormRegister } from "react-hook-form";
 import styles from "./InputField.module.css";
 
 interface InputFieldProps<TInputFieldValues extends FieldValues, TInputFieldsName extends Path<TInputFieldValues>> {
@@ -8,7 +8,7 @@ interface InputFieldProps<TInputFieldValues extends FieldValues, TInputFieldsNam
     placeholder: string;
     type: "text" | "number" | "password";
     register: UseFormRegister<TInputFieldValues>;
-    validationRules: any;
+    validationRules: RegisterOptions<TInputFieldValues, TInputFieldsName>;
     errors?: FieldError;
 }
 
@@ -37,3 +37,4 @@ const InputField = <TInputFieldValues extends FieldValues, TInputFieldsName exte
     );
 };
 export default InputField;
+
