@@ -45,7 +45,7 @@ const InputFieldsEmailPassword: FC = () => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField
+            <InputField<FormValues, "email">
                 name="email"
                 text="Email:"
                 type="text"
@@ -60,7 +60,7 @@ const InputFieldsEmailPassword: FC = () => {
                 }}
                 errors={errors.email}
             />
-            <InputField
+            <InputField<FormValues, "password">
                 name="password"
                 text="Password:"
                 type="password"
@@ -76,7 +76,7 @@ const InputFieldsEmailPassword: FC = () => {
                 }}
                 errors={errors.password}
             />
-            <InputField
+            <InputField<FormValues, "repeatPassword">
                 name="repeatPassword"
                 text="Repeat password:"
                 type="password"

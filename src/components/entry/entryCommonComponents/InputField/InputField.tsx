@@ -1,19 +1,18 @@
 
-import { FieldError, FieldValues, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldValues, Path, UseFormRegister } from "react-hook-form";
 import styles from "./InputField.module.css";
-import { FC } from "react";
 
-interface InputFieldProps<TInputFieldValues> {
-    name: string;
+interface InputFieldProps<TInputFieldValues extends FieldValues, TInputFieldsName extends Path<TInputFieldValues>> {
+    name: TInputFieldsName;
     text: string;
     placeholder: string;
     type: "text" | "number" | "password";
     register: UseFormRegister<TInputFieldValues>;
     validationRules: any;
-    errors: FieldError;
+    errors?: FieldError;
 }
 
-const InputField: FC<InputFieldProps> = ({
+const InputField = <TInputFieldValues extends FieldValues, TInputFieldsName extends Path<TInputFieldValues>>({
     name,
     text,
     placeholder,
@@ -21,7 +20,7 @@ const InputField: FC<InputFieldProps> = ({
     register,
     validationRules,
     errors,
-}) => {
+}: InputFieldProps<TInputFieldValues, TInputFieldsName>) => {
     return (
         <div className={styles.wrap_input}>
             <p className={styles.text}>{text}</p>
