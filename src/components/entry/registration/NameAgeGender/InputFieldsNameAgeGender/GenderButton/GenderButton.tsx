@@ -1,6 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./GenderButton.module.css";
-function GenderButton({genderChange, gender, gender_type, gender_img }) {
+
+interface GenderButtonProps {
+    genderChange: (value: string) => void
+    gender: string
+    gender_type: string
+    gender_img: string
+}
+
+const GenderButton: FC<GenderButtonProps> = ({genderChange, gender, gender_type, gender_img }) => {
     return (
         <label
             className={`${styles.radio_button} ${

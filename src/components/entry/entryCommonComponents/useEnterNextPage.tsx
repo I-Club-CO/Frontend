@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { nextStep } from "../../store/headerProgressBarSlice";
 import { useAppDispatch } from "../../../hook";
-import { UseFormHandleSubmit } from "react-hook-form";
+import { FieldValues, UseFormHandleSubmit } from "react-hook-form";
 
-interface EnterNextPageProps<T> {
+interface EnterNextPageProps<T extends FieldValues> {
     handleSubmit: UseFormHandleSubmit<T>
     onSubmit: (data: T) => void
 }
 
-const useEnterNextPage = <T,>({handleSubmit, onSubmit}: EnterNextPageProps<T>) => {
+const useEnterNextPage = <T extends FieldValues,>({handleSubmit, onSubmit}: EnterNextPageProps<T>) => {
     const dispatch = useAppDispatch()
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
