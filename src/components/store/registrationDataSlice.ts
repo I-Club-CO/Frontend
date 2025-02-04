@@ -4,7 +4,7 @@ interface RegistrationState {
     email: string
     password: string
     username: string
-    birthday: string
+    birthday: number | null
     gender: string
     industry: string
     info: string
@@ -19,7 +19,7 @@ const initialState: RegistrationState = {
     email: "",
     password: "",
     username: "",
-    birthday: "",
+    birthday: null,
     gender: "",
     industry: "",
     info: "",
@@ -43,7 +43,7 @@ const registrationDataSlice = createSlice({
         setUsername(state, action: PayloadAction<string>) {
             state.username = action.payload;
         },
-        setBirthday(state, action: PayloadAction<string>) {
+        setBirthday(state, action: PayloadAction<number | null>) {
             state.birthday = action.payload;
         },
         setGender(state, action: PayloadAction<string>) {

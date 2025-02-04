@@ -1,10 +1,17 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { nextStep } from "../../store/headerProgressBarSlice";
-export default function useEnterNextPage ({handleSubmit, onSubmit}) {
-    const dispatch = useDispatch()
+import { useAppDispatch } from "../../../hook";
+import { UseFormHandleSubmit } from "react-hook-form";
+
+interface EnterNextPageProps<T> {
+    handleSubmit: UseFormHandleSubmit<T>
+    onSubmit: (data: T) => void
+}
+
+const useEnterNextPage = <T,>({handleSubmit, onSubmit}: EnterNextPageProps<T>) => {
+    const dispatch = useAppDispatch()
     useEffect(() => {
-        const handleKeyPress = (event) => {
+        const handleKeyPress = (event: KeyboardEvent) => {
             if (event.key === "Enter") {
                 event.preventDefault();
                 handleSubmit(onSubmit)();
@@ -18,3 +25,5 @@ export default function useEnterNextPage ({handleSubmit, onSubmit}) {
         };
     }, [dispatch, handleSubmit, onSubmit]);
 }
+
+export default useEnterNextPage

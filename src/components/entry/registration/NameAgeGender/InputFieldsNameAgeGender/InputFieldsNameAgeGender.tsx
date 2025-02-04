@@ -11,15 +11,10 @@ import useDefaultValuesInputNameAgeGender from "./useDefaultValuesInputNameAgeGe
 import { useForm } from "react-hook-form";
 import { useAppSelector } from "../../../../../hook";
 
-enum Gender {
-    male = "male",
-    female = "female"
-}
-
 export interface FormValues {
     username: string
     birthday: number
-    gender: Gender
+    gender: string
 }
 
 const InputFieldsNameAgeGender: FC = () => {
@@ -29,11 +24,11 @@ const InputFieldsNameAgeGender: FC = () => {
             birthday,
             gender: storedGender,
         } = useAppSelector((state) => state.registrationData),
-        [gender, setGender] = useState(storedGender || "");
+        [gender, setGender] = useState(storedGender || "")
 
     const handleOnSubmit = useOnSubmitNameAgeGender(),
         onSubmit = (data: FormValues) => {
-            handleOnSubmit({ ...data, gender });
+            handleOnSubmit({ ...data, gender});
         };
 
     const handleGenderChange = (value: string): void => {
