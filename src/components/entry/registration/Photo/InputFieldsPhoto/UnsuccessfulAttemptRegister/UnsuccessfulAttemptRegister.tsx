@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import styles from "./UnsuccessfulAttemptRegister.module.css";
-export default function UnsuccessfulAttemptRegister() {
+import { FC } from "react";
+const UnsuccessfulAttemptRegister: FC = () => {
     const navigate = useNavigate(),
-        backToLogin = () => navigate("/");
+        backToLogin = (): void => navigate("/");
     return (
         <div className={styles.overlay}>
             <div>
@@ -18,3 +19,4 @@ export default function UnsuccessfulAttemptRegister() {
         </div>
     );
 }
+export default UnsuccessfulAttemptRegister

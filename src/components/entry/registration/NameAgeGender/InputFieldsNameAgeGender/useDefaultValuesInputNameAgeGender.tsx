@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { FormValues } from "./InputFieldsNameAgeGender";
 
-
 interface InputValuesProps {
     username: string
     birthday: number

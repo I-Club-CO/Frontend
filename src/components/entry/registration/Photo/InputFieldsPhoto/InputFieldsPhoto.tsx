@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
-import { useDispatch } from "react-redux";
 import useSendDataToServerPhoto from "../useSendDataToServerPhoto";
 import useEnterNextPagePhoto from "./useEnterNextPagePhoto";
 import InputPhoto from "./InputPhoto/InputPhoto";
@@ -9,20 +7,22 @@ import Loader from "../../../../common/Loader";
 import ButtonPhoto from "./ButtonPhoto/ButtonPhoto";
 import { nextStep } from "../../../../store/headerProgressBarSlice";
 import UnsuccessfulAttemptRegister from "./UnsuccessfulAttemptRegister/UnsuccessfulAttemptRegister";
+import { useForm } from "react-hook-form";
+import { useAppDispatch } from "../../../../../hook";
 
 export default function InputFieldsPhoto() {
-    const dispatch = useDispatch(),
+    const dispatch = useAppDispatch(),
         [photoPreview, setPhotoPreview] = useState(""),
-        [photo, setPhoto] = useState(null);
+        [photo, setPhoto] = useState<File | null>(null);
 
-    const { handleSubmit } = useRegLogForm({}, "onBlur");
+    const { handleSubmit } = useForm({defaultValues: {}, mode: "onBlur"});
 
     const { sendData, dataSent, errorDataSend } = useSendDataToServerPhoto();
 
-    const onSuccess = () => dispatch(nextStep());
+    const onSuccess = (): void => {dispatch(nextStep())};
 
     const onSubmit = () => {
-        sendData(photo, setPhotoPreview, onSuccess);
+        sendData(photo, onSuccess);
     };
 
     useEnterNextPagePhoto({ handleSubmit, onSubmit });

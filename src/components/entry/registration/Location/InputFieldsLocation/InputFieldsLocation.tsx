@@ -1,17 +1,22 @@
 import React, { useEffect } from "react";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
-import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import useOnSubmitLocation from "../useOnSubmitLocation";
 import Button from "../../../entryCommonComponents/Button/Button";
-import { useSelector } from "react-redux";
 import useDefaultValuesInputLocation from "./useDefaultValuesInputLocation";
+import { useForm } from "react-hook-form";
+import { useAppSelector } from "../../../../../hook";
+
+export interface FormValues {
+    city: string
+    country: string
+}
 
 function InputFieldsLocation() {
-    const { register, errors, isValid, handleSubmit, setValue, trigger } = useRegLogForm(),
-        { city, country } = useSelector((state) => state.registrationData);
+    const { register, formState: {errors, isValid}, handleSubmit, setValue, trigger } = useForm<FormValues>({defaultValues: {}, mode: "onChange"}),
+        { city, country } = useAppSelector((state) => state.registrationData);
 
     const handleOnSubmit = useOnSubmitLocation(),
-        onSubmit = (data) => {
+        onSubmit = (data: FormValues) => {
             handleOnSubmit(data);
         };
 
@@ -23,7 +28,7 @@ function InputFieldsLocation() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <InputField
+            <InputField<FormValues, "city">
                 name="city"
                 text="City:"
                 placeholder="City..."
@@ -37,7 +42,7 @@ function InputFieldsLocation() {
                 }}
                 errors={errors.city}
             />
-            <InputField
+            <InputField<FormValues, "country">
                 name="country"
                 text="Country:"
                 placeholder="Country..."

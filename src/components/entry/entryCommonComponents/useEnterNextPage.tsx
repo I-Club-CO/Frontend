@@ -8,7 +8,7 @@ interface EnterNextPageProps<T extends FieldValues> {
     onSubmit: (data: T) => void
 }
 
-const useEnterNextPage = <T extends FieldValues,>({handleSubmit, onSubmit}: EnterNextPageProps<T>) => {
+const useEnterNextPage = <T extends FieldValues>({handleSubmit, onSubmit}: EnterNextPageProps<T>) => {
     const dispatch = useAppDispatch()
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {

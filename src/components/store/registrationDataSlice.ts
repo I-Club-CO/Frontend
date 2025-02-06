@@ -26,7 +26,7 @@ const initialState: RegistrationState = {
     category: [],
     country: "",
     city: "",
-    image1: undefined,
+    image1: null,
     phone: "79008007545",
 };
 

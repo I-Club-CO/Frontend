@@ -12,23 +12,29 @@ import { useForm } from "react-hook-form";
 import { useAppSelector } from "../../../../../hook";
 
 export interface FormValues {
-    username: string
-    birthday: number
-    gender: string
+    username: string;
+    birthday: number;
+    gender: string;
 }
 
 const InputFieldsNameAgeGender: FC = () => {
-    const { register, formState: {errors, isValid}, handleSubmit, setValue, trigger } = useForm<FormValues>({defaultValues: {}, mode: "onChange"}),
+    const {
+            register,
+            formState: { errors, isValid },
+            handleSubmit,
+            setValue,
+            trigger,
+        } = useForm<FormValues>({ defaultValues: {}, mode: "onChange" }),
         {
             username,
             birthday,
             gender: storedGender,
         } = useAppSelector((state) => state.registrationData),
-        [gender, setGender] = useState(storedGender || "")
+        [gender, setGender] = useState(storedGender || "");
 
     const handleOnSubmit = useOnSubmitNameAgeGender(),
         onSubmit = (data: FormValues) => {
-            handleOnSubmit({ ...data, gender});
+            handleOnSubmit({ ...data, gender });
         };
 
     const handleGenderChange = (value: string): void => {
@@ -48,7 +54,6 @@ const InputFieldsNameAgeGender: FC = () => {
     useEffect(() => {
         trigger(); // Это пересчитает isValid
     }, [username, birthday, gender, trigger]);
-
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -111,6 +116,6 @@ const InputFieldsNameAgeGender: FC = () => {
             <Button type="submit" text={"Next"} disabled={!isFormValid} />
         </form>
     );
-}
+};
 
 export default InputFieldsNameAgeGender;
