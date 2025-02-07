@@ -1,15 +1,21 @@
-import React from "react";
+import React, { ChangeEvent, FC } from "react";
 import styles from "./InputPhoto.module.css";
 import camera from "../../../../../../assets/images/camera.svg";
-export default function InputPhoto({ setPhoto, setPhotoPreview }) {
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0]
+interface InputPhotoProps {
+    setPhoto: (file: File) => void
+    setPhotoPreview: (preview: string) => void
+}
+
+const InputPhoto: FC<InputPhotoProps> = ({ setPhoto, setPhotoPreview }) => {
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0]
         if (file) {
             setPhoto(file)
             const reader = new FileReader()
             reader.onloadend = () => {
-                setPhotoPreview(reader.result)
+                if (typeof reader.result === "string") setPhotoPreview(reader.result)
             }
             reader.readAsDataURL(file);
         }
@@ -39,3 +45,5 @@ export default function InputPhoto({ setPhoto, setPhotoPreview }) {
         </div>
     );
 }
+
+export default InputPhoto
