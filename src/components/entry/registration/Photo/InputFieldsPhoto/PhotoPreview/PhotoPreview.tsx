@@ -1,6 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./PhotoPreview.module.css"
-export default function PhotoPreview({photoPreview}) {
+
+interface PhotoPreviewProps {
+    photoPreview: string
+}
+
+const PhotoPreview:FC<PhotoPreviewProps> = ({photoPreview}) =>  {
     return (
         <div className={styles.wrap_input}>
             <p className={styles.text}>Photo:</p>
@@ -18,3 +23,4 @@ export default function PhotoPreview({photoPreview}) {
         </div>
     );
 }
+export default PhotoPreview
