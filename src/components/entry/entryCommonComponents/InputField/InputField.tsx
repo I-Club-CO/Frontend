@@ -9,7 +9,8 @@ interface InputFieldProps<TInputFieldValues extends FieldValues, TInputFieldsNam
     type?: "text" | "number" | "password";
     register: UseFormRegister<TInputFieldValues>;
     validationRules: RegisterOptions<TInputFieldValues, TInputFieldsName>;
-    errors?: FieldError;
+    errors?: FieldError | undefined;
+    disabled?: boolean | undefined
 }
 
 const InputField = <TInputFieldValues extends FieldValues, TInputFieldsName extends Path<TInputFieldValues>>({
@@ -20,6 +21,7 @@ const InputField = <TInputFieldValues extends FieldValues, TInputFieldsName exte
     register,
     validationRules,
     errors,
+    disabled,
 }: InputFieldProps<TInputFieldValues, TInputFieldsName>) => {
     return (
         <div className={styles.wrap_input}>
@@ -28,6 +30,7 @@ const InputField = <TInputFieldValues extends FieldValues, TInputFieldsName exte
                 className={styles.input}
                 type={type}
                 placeholder={placeholder}
+                disabled={disabled}
                 {...(register ? register(name, validationRules) : {})}
             />
             <p className={styles.error_text}>

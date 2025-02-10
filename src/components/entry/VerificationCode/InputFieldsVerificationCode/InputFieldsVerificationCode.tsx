@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "./InputFieldsVerificationCode.module.css";
-import { useRegLogForm } from "../../entryCommonComponents/useRegLogForm";
 import useTimer from "../useTimer";
 import useSendDataToServerVerifyCode from "../useSendDataToServerVerifyCode";
 import useEnterNextPageEasier from "../../entryCommonComponents/useEnterNextPageEasier";
@@ -8,10 +7,16 @@ import InputField from "../../entryCommonComponents/InputField/InputField";
 import formatTime from "../formatTime";
 import Button from "../../entryCommonComponents/Button/Button";
 import Loader from "../../../common/Loader";
+import { useForm } from "react-hook-form";
+
+export interface FormValue {
+    verify: string
+}
+
 export default function InputFieldsVerificationCode() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { register, errors, isValid, handleSubmit, reset } = useRegLogForm(),
+    const { register, formState: {errors, isValid}, handleSubmit, reset } = useForm<FormValue>({defaultValues: {}, mode: "onChange"}),
         { timer, startTimer } = useTimer();
 
     const { sendDataToServer, dataSent } = useSendDataToServerVerifyCode({
@@ -19,11 +24,12 @@ export default function InputFieldsVerificationCode() {
             startTimer,
             reset,
         }),
-        onSubmit = (data) => {
+        onSubmit = (data: FormValue) => {
             sendDataToServer(data);
         };
 
-    const handleKeyDown = useEnterNextPageEasier();
+    const handleKeyDown = useEnterNextPageEasier<FormValue>();
+
 
     return (
         <>
@@ -36,7 +42,7 @@ export default function InputFieldsVerificationCode() {
                         handleKeyDown(event, isValid, handleSubmit, onSubmit)
                     }
                 >
-                    <InputField
+                    <InputField<FormValue, "verify">
                         name="verify"
                         text="Enter verification code:"
                         type="number"
