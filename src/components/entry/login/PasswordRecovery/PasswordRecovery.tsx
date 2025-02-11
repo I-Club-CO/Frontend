@@ -5,23 +5,28 @@ import { useRegLogForm } from "../../entryCommonComponents/useRegLogForm";
 import useSendDataToServerPassRecovery from "./useSendDataToServerPassRecovery";
 import InputField from "../../entryCommonComponents/InputField/InputField";
 import Loader from "../../../common/Loader";
-import { useDispatch } from "react-redux";
 import { nextStep } from "../../../store/headerProgressBarSlice";
 import ButtonWelcomeBack from "../ButtonWelcomeBack/ButtonWelcomeBack";
 import UnsuccessfulAttemptPassRec from "./UnsuccessfulAttemptPassRec/UnsuccessfulAttemptPassRec";
+import { useForm } from "react-hook-form";
+import { useAppDispatch } from "../../../../hook";
+
+export interface FormValue {
+    email: string
+}
 
 function PasswordRecovery() {
-    const { register, errors, isValid, handleSubmit, setValue } = useRegLogForm();
+    const { register, formState: {errors, isValid}, handleSubmit, setValue } = useForm<FormValue>({defaultValues: {}, mode: "onChange"});
 
     const { sendDataToServer, dataSent, errorSend, setErrorSend } = useSendDataToServerPassRecovery(),
-        dispatch = useDispatch(),
+        dispatch = useAppDispatch(),
         onSuccess = () => dispatch(nextStep()),
-        onSubmit = (data) => {
+        onSubmit = (data: FormValue) => {
             sendDataToServer(data, onSuccess);
         };
 
-    const [modalActive, setModalActive] = useState(false),
-        closeModal = () => {
+    const [modalActive, setModalActive] = useState<boolean>(false),
+        closeModal = (): void => {
             setModalActive(false)
             setErrorSend(false)
         }
@@ -41,7 +46,7 @@ function PasswordRecovery() {
                 <Loader />
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <InputField
+                    <InputField<FormValue, "email">
                         name="email"
                         text="Email:"
                         placeholder="Email..."

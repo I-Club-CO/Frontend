@@ -1,6 +1,12 @@
-import React from "react";
+import React, { FC } from "react";
 import styles from "./UnsuccessfulAttemptPassRec.module.css"
-function UnsuccessfulAttemptPassRec({active, setActive}) {
+
+interface UnsuccessfulAttemptProps {
+    active: boolean
+    setActive: () => void
+}
+
+const UnsuccessfulAttemptPassRec: FC<UnsuccessfulAttemptProps> = ({active, setActive}) => {
     return (
         <div className={active ? styles.overlayActive : styles.overlay} onClick={() => setActive()}>
             <div onClick={(e) => e.stopPropagation()}>

@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { resetLoginData } from "../../../../store/loginDataSlice";
+import { FormValues } from "./FormWelcomeBack";
 
 export default function useSendDataToServerWelcomeBack() {
-    const [dataSent, setDataSent] = useState(false),
-        [errorDataSend, setErrorDataSend] = useState(false)
+    const [dataSent, setDataSent] = useState<boolean>(false),
+        [errorDataSend, setErrorDataSend] = useState<boolean>(false)
 
-    const sendData = useCallback(async (data, onSuccess) => {
+    const sendData = useCallback(async (data: FormValues, onSuccess: () => void) => {
         setDataSent(true);
         try {
             const response = await axios.post(

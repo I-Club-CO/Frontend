@@ -1,17 +1,18 @@
 import { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { resetLoginData, setEmail } from "../../../store/loginDataSlice";
 import axios from "axios";
+import { FormValue } from "./PasswordRecovery";
+import { useAppDispatch } from "../../../../hook";
 
 export default function useSendDataToServerPassRecovery() {
-    const dispatch = useDispatch(),
+    const dispatch = useAppDispatch(),
         navigate = useNavigate(),
-        [dataSent, setDataSent] = useState(false),
-        [errorSend, setErrorSend] = useState(false)
+        [dataSent, setDataSent] = useState<boolean>(false),
+        [errorSend, setErrorSend] = useState<boolean>(false)
 
     const sendDataToServer = useCallback(
-        async (data, onSuccess) => {
+        async (data: FormValue, onSuccess: () => void) => {
             dispatch(setEmail(data.email));
             setDataSent(true);
             try {

@@ -9,17 +9,23 @@ import { useDispatch } from "react-redux";
 import { nextStep } from "../../../../store/headerProgressBarSlice";
 import Loader from "../../../../common/Loader";
 import UnsuccessfulAttemptLogin from "./UnsuccessfulAttemptLogin/UnsuccessfulAttemptLogin";
+import { useForm } from "react-hook-form";
+
+export interface FormValues {
+    email: string
+    password: string
+}
 
 export default function FormWelcomeBack() {
     const { sendData, dataSent, errorDataSend } =
         useSendDataToServerWelcomeBack();
 
-    const { register, errors, isValid, handleSubmit } = useRegLogForm(),
+    const { register, formState: {errors, isValid}, handleSubmit } = useForm<FormValues>({defaultValues: {}, mode: "onChange"}),
         dispatch = useDispatch();
 
     const onSuccess = () => dispatch(nextStep());
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: FormValues) => {
         sendData(data, onSuccess);
     };
     return (
@@ -30,7 +36,7 @@ export default function FormWelcomeBack() {
                 <Loader />
             ) : (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <InputField
+                    <InputField<FormValues, "email">
                         name="email"
                         text="Email:"
                         placeholder="Email..."
@@ -44,7 +50,7 @@ export default function FormWelcomeBack() {
                         }}
                         errors={errors.email}
                     />
-                    <InputField
+                    <InputField<FormValues, "password">
                         name="password"
                         text="Password:"
                         placeholder="Password..."
