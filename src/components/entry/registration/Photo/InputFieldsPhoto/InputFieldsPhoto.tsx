@@ -10,22 +10,26 @@ import UnsuccessfulAttemptRegister from "./UnsuccessfulAttemptRegister/Unsuccess
 import { useForm } from "react-hook-form";
 import { useAppDispatch } from "../../../../../hook";
 
+interface FormValue {
+    photo: File | null
+}
+
 export default function InputFieldsPhoto() {
     const dispatch = useAppDispatch(),
         [photoPreview, setPhotoPreview] = useState(""),
         [photo, setPhoto] = useState<File | null>(null);
 
-    const { handleSubmit } = useForm({defaultValues: {}, mode: "onBlur"});
+    const { handleSubmit } = useForm<FormValue>({defaultValues: {}, mode: "onBlur"});
 
     const { sendData, dataSent, errorDataSend } = useSendDataToServerPhoto();
 
     const onSuccess = (): void => {dispatch(nextStep())};
 
-    const onSubmit = () => {
+    const onSubmit = (): void => {
         sendData(photo, onSuccess);
     };
 
-    useEnterNextPagePhoto({ handleSubmit, onSubmit });
+    useEnterNextPagePhoto<FormValue>({ handleSubmit, onSubmit });
 
     return (
         <>

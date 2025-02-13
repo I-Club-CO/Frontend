@@ -6,8 +6,8 @@ import { resetRegistrationData } from "../../../store/registrationDataSlice";
 import { useAppSelector } from "../../../../hook";
 
 export default function useSendDataToServerPhoto() {
-    const [dataSent, setDataSent] = useState(false),
-        [errorDataSend, setErrorDataSend] = useState(false)
+    const [dataSent, setDataSent] = useState<boolean>(false),
+        [errorDataSend, setErrorDataSend] = useState<boolean>(false)
     const allData = useAppSelector((state) => state.registrationData),
         navigate = useNavigate(),
         decryptingPassword = decryptPassword(allData.password);

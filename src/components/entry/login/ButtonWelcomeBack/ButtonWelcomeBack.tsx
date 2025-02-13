@@ -5,7 +5,7 @@ interface ButtonWelcomeBack extends ButtonHTMLAttributes<HTMLButtonElement> {
     text: string
 }
 
-const ButtonWelcomeBack: FC<ButtonWelcomeBack> = ({ ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
+const ButtonWelcomeBack: FC<ButtonWelcomeBack> = ({ ...props }) => {
     return (
         <button className={styles.btn} {...props}>
             {props.text}
