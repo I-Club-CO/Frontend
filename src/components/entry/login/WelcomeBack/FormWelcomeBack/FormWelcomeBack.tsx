@@ -3,13 +3,12 @@ import styles from "./FormWelcomeBack.module.css";
 import InputField from "../../../entryCommonComponents/InputField/InputField";
 import { NavLink } from "react-router-dom";
 import useSendDataToServerWelcomeBack from "./useSendDataToServerWelcomeBack";
-import { useRegLogForm } from "../../../entryCommonComponents/useRegLogForm";
 import ButtonWelcomeBack from "../../ButtonWelcomeBack/ButtonWelcomeBack";
-import { useDispatch } from "react-redux";
 import { nextStep } from "../../../../store/headerProgressBarSlice";
 import Loader from "../../../../common/Loader";
 import UnsuccessfulAttemptLogin from "./UnsuccessfulAttemptLogin/UnsuccessfulAttemptLogin";
 import { useForm } from "react-hook-form";
+import { useAppDispatch } from "../../../../../hook";
 
 export interface FormValues {
     email: string
@@ -21,7 +20,7 @@ export default function FormWelcomeBack() {
         useSendDataToServerWelcomeBack();
 
     const { register, formState: {errors, isValid}, handleSubmit } = useForm<FormValues>({defaultValues: {}, mode: "onChange"}),
-        dispatch = useDispatch();
+        dispatch = useAppDispatch();
 
     const onSuccess = () => dispatch(nextStep());
 
